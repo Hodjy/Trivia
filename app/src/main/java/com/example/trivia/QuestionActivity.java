@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.trivia.model.Answer;
+import com.example.trivia.model.GameSessionManager;
+import com.example.trivia.model.GameState;
+import com.example.trivia.model.Question;
 
 import java.util.ArrayList;
 
@@ -22,6 +26,8 @@ public class QuestionActivity extends AppCompatActivity
     private int m_Lives = 3;
     private int m_CurrentQuestion = 0;
     private int m_Score = 0;
+    private GameSessionManager m_GameSessionManager;
+    private GameState m_GameState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,7 +46,8 @@ public class QuestionActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                answerPressed((AnswerButton)v);
+                int time = 0;
+                m_GameState = m_GameSessionManager.answerPressed(((AnswerButton)v).getIsCorrect(), time);
             }
         };
 
@@ -49,34 +56,7 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn3.setOnClickListener(answerListener);
         m_Btn4.setOnClickListener(answerListener);
 
-        startGameSession();
-    }
-
-    private void startGameSession()
-    {
-        //TODO play start animation
-        nextQuestion();
-    }
-
-    private void nextQuestion()
-    {
-        calculateScore();
-
-        if((m_CurrentQuestion + 1) <=  m_Questions.size())
-        {
-            //TODO animation for next question
-            setNewQuestion(m_Questions.get(m_CurrentQuestion));
-            m_CurrentQuestion++;
-        }
-        else
-        {
-            endGame(true);
-        }
-    }
-
-    private void calculateScore()
-    {
-        m_Score++;
+        m_GameState = m_GameSessionManager.initGameSession();
     }
 
     private void setNewQuestion(Question i_Question)
@@ -91,55 +71,21 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn4.setAnswerButton(Answers.get(3));
     }
 
-    private void loseLifeAndProceed()
+    /*
+        private GameState nextQuestion()
     {
-        m_Lives -=1;
+        calculateScore();
 
-        if (m_Lives == 0)
+        if((m_CurrentQuestionCounter + 1) <=  m_Questions.size())
         {
-            //TODO animation for HP loss + delay
-            endGame(false);
+            //TODO animation for next question
+            setNewQuestion(m_Questions.get(m_CurrentQuestionCounter));
+            m_CurrentQuestionCounter++;
         }
         else
         {
-            nextQuestion();
+            endGame(true);
         }
     }
-
-    private void timeUp()
-    {
-        endGame(false);
-    }
-
-    private void endGame(boolean i_IsAWin)
-    {
-        if(i_IsAWin)
-        {
-            //win
-        }
-        else
-        {
-            //lose, check if because of time or lives and send corresponding message.
-        }
-    }
-
-
-
-    private void answerPressed(AnswerButton i_PressedButton)
-    {
-        if(i_PressedButton.getIsCorrect())
-        {
-            //play Correct animation and sound
-            //lock timer and UI
-            //delay
-            nextQuestion();
-        }
-        else
-        {
-            //play InCorrect animation and sound
-            //lock timer and UI
-            //delay
-            loseLifeAndProceed();
-        }
-    }
+     */
 }

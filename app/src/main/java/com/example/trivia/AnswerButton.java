@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.example.trivia.model.Answer;
+
 public class AnswerButton extends androidx.appcompat.widget.AppCompatButton
 {
     private Answer m_Answer;

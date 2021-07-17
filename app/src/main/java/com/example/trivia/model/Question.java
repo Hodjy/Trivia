@@ -1,4 +1,4 @@
-package com.example.trivia;
+package com.example.trivia.model;
 
 import java.util.ArrayList;
 
