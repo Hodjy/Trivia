@@ -2,6 +2,7 @@ package com.example.trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,6 +42,8 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn3 = findViewById(R.id.questionActivity_btn3);
         m_Btn4 = findViewById(R.id.questionActivity_btn4);
 
+        m_Questions = new ArrayList<>();
+
         View.OnClickListener answerListener =  new View.OnClickListener()
         {
             @Override
@@ -56,7 +59,18 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn3.setOnClickListener(answerListener);
         m_Btn4.setOnClickListener(answerListener);
 
+        Question question = new Question(Uri.parse("android.resource://com.example.trivia/drawable/correct_icon"),
+                new Answer("Aba", false),
+                new Answer("Aba", false),
+                new Answer("Aba", false),
+                new Answer("nahon", true));
+
+        m_Questions.add(question);
+        m_GameSessionManager = new GameSessionManager(m_Questions);
+
         m_GameState = m_GameSessionManager.initGameSession();
+
+        setNewQuestion(question);
     }
 
     private void setNewQuestion(Question i_Question)

@@ -1,14 +1,16 @@
 package com.example.trivia.model;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 
 public class Question
 {
-    private final String m_ImgUri;
+    private final Uri m_ImgUri;
     private final ArrayList<Answer> m_Answers;
 
     //TODO make sure user can only insert 1 correct and 3 false questions. And only that.
-    public Question(String i_ImgUri, Answer i_Answer1,Answer i_Answer2,
+    public Question(Uri i_ImgUri, Answer i_Answer1,Answer i_Answer2,
                     Answer i_Answer3,Answer i_Answer4)
     {
         m_ImgUri = i_ImgUri;
@@ -19,7 +21,7 @@ public class Question
         m_Answers.add(i_Answer4);
     }
 
-    public String getImgUri()
+    public Uri getImgUri()
     {
         return m_ImgUri;
     }

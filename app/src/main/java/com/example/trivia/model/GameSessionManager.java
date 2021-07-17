@@ -13,7 +13,7 @@ public class GameSessionManager
     private GameState m_GameState;
     private int m_CurrentQuestionCounter;
 
-    GameSessionManager(ArrayList<Question> i_Questions)
+    public GameSessionManager(ArrayList<Question> i_Questions)
     {
         m_Questions = i_Questions;
     }
