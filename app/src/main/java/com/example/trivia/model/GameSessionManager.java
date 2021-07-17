@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Game session class, must be initialised with initGameSession after creation.
+ * Must contain questions.
  */
 public class GameSessionManager
 {
@@ -20,10 +21,18 @@ public class GameSessionManager
 
     public GameState initGameSession()
     {
-        int startingLife = 3;
+        int startingLife = 1;
         int startingScore = 0;
+        boolean gameIsRunning = true;
         m_CurrentQuestionCounter = 0;
-        m_GameState = new GameState(m_Questions.get(0), startingScore, startingLife);
+        if(m_Questions.size() != 0)
+        {
+            m_GameState = new GameState(m_Questions.get(0), startingScore, startingLife, gameIsRunning);
+        }
+        else
+        {
+            m_GameState = new GameState(null, 0, 0, !gameIsRunning);
+        }
 
         return  m_GameState;
     }
@@ -31,20 +40,23 @@ public class GameSessionManager
 
     public GameState answerPressed(Boolean isCorrectAnswer, int i_TimeLeftForAnswer)
     {
-        if(isCorrectAnswer)
+        if(m_GameState.get_IsGameRunning())
         {
-            //play Correct animation and sound
-            //lock timer and UI
-            //delay
-            calculateScore(i_TimeLeftForAnswer);
-            nextQuestion();
-        }
-        else
-        {
-            //play InCorrect animation and sound
-            //lock timer and UI
-            //delay
-            loseLifeAndProceed();
+            if(isCorrectAnswer)
+            {
+                //play Correct animation and sound
+                //lock timer and UI
+                //delay
+                calculateScore(i_TimeLeftForAnswer);
+                nextQuestion();
+            }
+            else
+            {
+                //play InCorrect animation and sound
+                //lock timer and UI
+                //delay
+                loseLifeAndProceed();
+            }
         }
 
         return m_GameState;
@@ -53,7 +65,7 @@ public class GameSessionManager
     private void nextQuestion()
     {
 
-        if((m_CurrentQuestionCounter + 1) <=  m_Questions.size())
+        if(m_CurrentQuestionCounter <  (m_Questions.size() - 1))
         {
             m_CurrentQuestionCounter++;
             m_GameState.setCurrentQuestion(m_Questions.get(m_CurrentQuestionCounter));
