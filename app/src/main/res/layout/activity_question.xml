@@ -3,72 +3,107 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:weightSum="18"
+    android:weightSum="100"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="Lives                                            23 left                                 settings"
-        android:layout_weight="1"
+        android:layout_weight="5"
         />
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="3"
         />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
-        android:layout_weight="7"
+        android:layout_weight="40"
         android:scaleType="fitXY"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_baseline_local_florist_24"
-        android:background="@color/design_default_color_secondary"/>
+        android:background="@color/design_default_color_secondary"
+        android:id="@+id/questionActivity_questionIV"/>
+
+    <Space
+        android:layout_weight="15"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:layout_weight="8"
         android:orientation="horizontal">
 
-        <Button
+        <Space
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"/>
 
+        <com.example.trivia.AnswerButton
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:layout_height="match_parent"
+            android:id="@+id/questionActivity_btn1"/>
+
         <Space
             android:layout_width="0dp"
-            android:layout_weight="0.2"
+            android:layout_weight="1"
             android:layout_height="match_parent"/>
 
-        <Button
+        <com.example.trivia.AnswerButton
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:layout_height="match_parent"
+            android:id="@+id/questionActivity_btn2"/>
+
+        <Space
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"/>
     </LinearLayout>
 
+    <Space
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:layout_weight="8"
         android:orientation="horizontal">
 
-        <Button
+        <Space
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"/>
 
+        <com.example.trivia.AnswerButton
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:layout_height="match_parent"
+            android:id="@+id/questionActivity_btn3"/>
+
         <Space
             android:layout_width="0dp"
-            android:layout_weight="0.2"
+            android:layout_weight="1"
             android:layout_height="match_parent"/>
 
-        <Button
+        <com.example.trivia.AnswerButton
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:layout_height="match_parent"
+            android:id="@+id/questionActivity_btn4"/>
+
+        <Space
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"/>
