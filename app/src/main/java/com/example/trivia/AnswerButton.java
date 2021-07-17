@@ -52,6 +52,13 @@ public class AnswerButton extends LinearLayout
         {
             m_AnswerImage.setImageResource(R.drawable.incorrect_icon);
         }
+
+        m_AnswerImage.setVisibility(INVISIBLE);
+    }
+
+    public void showAnswerImage()
+    {
+        m_AnswerImage.setVisibility(VISIBLE);
     }
 
     public void setAnswerText(String i_Text){

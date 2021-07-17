@@ -6,12 +6,51 @@
     android:weightSum="100"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Lives                                            23 left                                 settings"
         android:layout_weight="5"
-        />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:id="@+id/questionActivity_livesTV"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:id="@+id/questionActivity_scoreTV"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="Settings"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:id="@+id/questionActivity_settingsTV"/>
+
+    </LinearLayout>
 
     <Space
         android:layout_width="match_parent"

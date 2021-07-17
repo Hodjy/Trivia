@@ -18,4 +18,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     //TODO When pressing a button in-game, stop the timer in order to prevent bugs.
+    //TODO 1 Explicit intent ExtraData
+    //TODO SharedPreferences
 }

@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.trivia.model.Answer;
@@ -22,11 +24,10 @@ public class QuestionActivity extends AppCompatActivity
     private AnswerButton m_Btn2;
     private AnswerButton m_Btn3;
     private AnswerButton m_Btn4;
+    private TextView m_LivesTv;
+    private TextView m_ScoreTv;
 
     private ArrayList<Question> m_Questions;
-    private int m_Lives = 3;
-    private int m_CurrentQuestion = 0;
-    private int m_Score = 0;
     private GameSessionManager m_GameSessionManager;
     private GameState m_GameState;
 
@@ -41,6 +42,8 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn2 = findViewById(R.id.questionActivity_btn2);
         m_Btn3 = findViewById(R.id.questionActivity_btn3);
         m_Btn4 = findViewById(R.id.questionActivity_btn4);
+        m_LivesTv = findViewById(R.id.questionActivity_livesTV);
+        m_ScoreTv = findViewById(R.id.questionActivity_scoreTV);
 
         m_Questions = new ArrayList<>();
 
@@ -50,7 +53,11 @@ public class QuestionActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 int time = 0;
-                m_GameState = m_GameSessionManager.answerPressed(((AnswerButton)v).getIsCorrect(), time);
+                AnswerButton btn = (AnswerButton)v;
+
+                btn.showAnswerImage();
+                m_GameState = m_GameSessionManager.answerPressed(btn.getIsCorrect(), time);
+                checkGameStateAndUpdateUI();
             }
         };
 
@@ -60,17 +67,33 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn4.setOnClickListener(answerListener);
 
         Question question = new Question(Uri.parse("android.resource://com.example.trivia/drawable/correct_icon"),
-                new Answer("Aba", false),
-                new Answer("Aba", false),
-                new Answer("Aba", false),
-                new Answer("nahon", true));
+                new Answer("FalseOne", false),
+                new Answer("FalseTwo", false),
+                new Answer("FalseThree", false),
+                new Answer("True", true));
+
+        m_Questions.add(question);
+
+        question = new Question(Uri.parse("android.resource://com.example.trivia/drawable/correct_icon"),
+                new Answer("BlaBla", false),
+                new Answer("Offirrro", false),
+                new Answer("FalseThree", false),
+                new Answer("True", true));
+
+        m_Questions.add(question);
+
+        question = new Question(Uri.parse("android.resource://com.example.trivia/drawable/correct_icon"),
+                new Answer("FalseOne", false),
+                new Answer("NAAAAAL", false),
+                new Answer("FalseThree", false),
+                new Answer("True", true));
 
         m_Questions.add(question);
         m_GameSessionManager = new GameSessionManager(m_Questions);
 
         m_GameState = m_GameSessionManager.initGameSession();
 
-        setNewQuestion(question);
+        updateUI();
     }
 
     private void setNewQuestion(Question i_Question)
@@ -85,21 +108,26 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn4.setAnswerButton(Answers.get(3));
     }
 
-    /*
-        private GameState nextQuestion()
+    private void checkGameStateAndUpdateUI()
     {
-        calculateScore();
+        updateUI();
 
-        if((m_CurrentQuestionCounter + 1) <=  m_Questions.size())
+        if(!m_GameState.get_IsGameRunning())
         {
-            //TODO animation for next question
-            setNewQuestion(m_Questions.get(m_CurrentQuestionCounter));
-            m_CurrentQuestionCounter++;
-        }
-        else
-        {
-            endGame(true);
+            endGame();
         }
     }
-     */
+
+    private void updateUI()
+    {
+        m_LivesTv.setText(m_GameState.getCurrentLife() + "");
+        m_ScoreTv.setText(m_GameState.getCurrentScore() + "");
+        setNewQuestion(m_GameState.getCurrentQuestion());
+    }
+
+
+    private void endGame()
+    {
+        Toast.makeText(this, "Game Ended", Toast.LENGTH_LONG).show();
+    }
 }
