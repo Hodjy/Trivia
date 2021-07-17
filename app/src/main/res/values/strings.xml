@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Trivia</string>
+    <string name="sunflower">Sunflower</string>
+    <string name="rose">Rose</string>
+    <string name="cyclamen">Cyclamen</string>
+    <string name="daisy">Daisy</string>
 </resources>
