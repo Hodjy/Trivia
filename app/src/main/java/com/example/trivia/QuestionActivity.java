@@ -14,6 +14,7 @@ import com.example.trivia.model.Answer;
 import com.example.trivia.model.GameSessionManager;
 import com.example.trivia.model.GameState;
 import com.example.trivia.model.Question;
+import com.example.trivia.model.QuestionDataBase;
 
 import java.util.ArrayList;
 
@@ -66,30 +67,7 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn3.setOnClickListener(answerListener);
         m_Btn4.setOnClickListener(answerListener);
 
-        Question question = new Question(Uri.parse("android.resource://com.example.trivia/drawable/correct_icon"),
-                new Answer("FalseOne", false),
-                new Answer("FalseTwo", false),
-                new Answer("FalseThree", false),
-                new Answer("True", true));
-
-        m_Questions.add(question);
-
-        question = new Question(Uri.parse("android.resource://com.example.trivia/drawable/correct_icon"),
-                new Answer("BlaBla", false),
-                new Answer("Offirrro", false),
-                new Answer("FalseThree", false),
-                new Answer("True", true));
-
-        m_Questions.add(question);
-
-        question = new Question(Uri.parse("android.resource://com.example.trivia/drawable/correct_icon"),
-                new Answer("FalseOne", false),
-                new Answer("NAAAAAL", false),
-                new Answer("FalseThree", false),
-                new Answer("True", true));
-
-        m_Questions.add(question);
-        m_GameSessionManager = new GameSessionManager(m_Questions);
+        m_GameSessionManager = new GameSessionManager(QuestionDataBase.loadEasyQuestions());
 
         m_GameState = m_GameSessionManager.initGameSession();
 
@@ -122,7 +100,11 @@ public class QuestionActivity extends AppCompatActivity
     {
         m_LivesTv.setText(m_GameState.getCurrentLife() + "");
         m_ScoreTv.setText(m_GameState.getCurrentScore() + "");
-        setNewQuestion(m_GameState.getCurrentQuestion());
+
+        if(m_GameState.get_IsGameRunning())
+        {
+            setNewQuestion(m_GameState.getCurrentQuestion());
+        }
     }
 
 

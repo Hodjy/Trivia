@@ -21,7 +21,7 @@ public class GameSessionManager
 
     public GameState initGameSession()
     {
-        int startingLife = 1;
+        int startingLife = 3;
         int startingScore = 0;
         boolean gameIsRunning = true;
         m_CurrentQuestionCounter = 0;
