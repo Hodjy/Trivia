@@ -3,6 +3,7 @@ package com.example.trivia.model;
 /**
  * This class encapsulates all the data related to the game session, in order to send it to the
  * View.
+ * DO NOT USE ITS SETTERS OUTSIDE OF THE GameSessionManager Class!
  */
 public class GameState
 {
