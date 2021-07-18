@@ -9,11 +9,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.trivia.enums.eSoundsIdentifier;
 import com.example.trivia.model.Answer;
 import com.example.trivia.model.GameSessionManager;
 import com.example.trivia.model.GameState;
 import com.example.trivia.model.Question;
 import com.example.trivia.model.QuestionDataBase;
+import com.example.trivia.model.SoundManager;
 
 import java.util.ArrayList;
 
@@ -116,6 +118,7 @@ public class QuestionActivity extends AppCompatActivity
      */
     private void answerButtonPressed(AnswerButton i_Btn)
     {
+        SoundManager.getInstance().playSound(QuestionActivity.this, eSoundsIdentifier.BTN_CLICK_SOUND);
         enableUserInput(false);
 
         i_Btn.showAnswerImage();
@@ -186,7 +189,7 @@ public class QuestionActivity extends AppCompatActivity
 
                 if (m_SecondsLeft <= 5 && m_SecondsLeft > 0)
                 {
-                    //TimerTickingSound();
+                    SoundManager.getInstance().playSound(QuestionActivity.this, eSoundsIdentifier.TIME_TICKING_SOUND);
                     //TODO ANIMATION / EFFECT
                     //if(m_SecondsLeft ==5)
                     // TimeTikcingEffect();

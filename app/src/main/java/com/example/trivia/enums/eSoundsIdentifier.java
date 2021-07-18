@@ -1,10 +1,11 @@
 package com.example.trivia.enums;
 
+import com.example.trivia.R;
+
 public enum eSoundsIdentifier {
-    //QUESTIONNAIRE_NEW_PATIENT("questionnaire_new_patient"),
-    //QUESTIONNAIRE_FOLLOW_UP("questionnaire_follow_up"),
-    //EDICINE_LIST("medicine_list");
-    ;
+    BTN_CLICK_SOUND(R.raw.btn_click_sound),
+    TIME_TICKING_SOUND(R.raw.time_ticking_sound);
+
     public final int id;
 
     private eSoundsIdentifier(int id) {

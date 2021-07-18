@@ -13,7 +13,10 @@ public class SoundManager {
 
     public static SoundManager getInstance(){
         if(m_Instance == null)
+        {
             m_Instance = new SoundManager();
+        }
+
         return m_Instance;
     }
 
