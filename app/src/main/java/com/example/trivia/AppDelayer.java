@@ -19,4 +19,14 @@ public class AppDelayer
         handler.postDelayed(i_Runnable, delay);
     }
 
+    public static void Post(Runnable i_Runnable)
+    {
+        handler.post(i_Runnable);
+    }
+
+    public static void RemoveCallbacks(Runnable i_Runnable)
+    {
+        handler.removeCallbacks(i_Runnable);
+    }
+
 }
