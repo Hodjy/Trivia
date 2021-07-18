@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="answers_easy">
+        <item>@string/answer_easy_daisy</item>
+        <item>@string/answer_easy_cyclamen</item>
+        <item>@string/answer_easy_rose</item>
+        <item>@string/answer_easy_sunflower</item>
+        <item>@string/answer_easy_anemone</item>
+        <item>@string/answer_easy_bleeding_heart</item>
+        <item>@string/answer_easy_iris</item>
+        <item>@string/answer_easy_jasmine</item>
+        <item>@string/answer_easy_lilac</item>
+        <item>@string/answer_easy_lotus</item>
+        <item>@string/answer_easy_narcissus</item>
+        <item>@string/answer_easy_orchid</item>
+    </string-array>
+
+    <string-array name="answers_medium">
+        <item>@string/answer_medium_lily</item>
+        <item>@string/answer_medium_nepeta</item>
+        <item>@string/answer_medium_nicotiana</item>
+        <item>@string/answer_medium_nymphea</item>
+        <item>@string/answer_medium_passion_flower</item>
+        <item>@string/answer_medium_peony</item>
+        <item>@string/answer_medium_petunia</item>
+        <item>@string/answer_medium_phlox</item>
+        <item>@string/answer_medium_snowdrop</item>
+        <item>@string/answer_medium_spider_flower</item>
+        <item>@string/answer_medium_tiger_flower</item>
+        <item>@string/answer_medium_tulip</item>
+    </string-array>
+
+    <string-array name="answers_hard">
+        <item>@string/answer_hard_dandelion</item>
+        <item>@string/answer_hard_echinacea</item>
+        <item>@string/answer_hard_forsythia</item>
+        <item>@string/answer_hard_heliotrope</item>
+        <item>@string/answer_hard_hibiscus</item>
+        <item>@string/answer_hard_magnolia</item>
+        <item>@string/answer_hard_mallow</item>
+        <item>@string/answer_hard_nemesia</item>
+        <item>@string/answer_hard_nerine</item>
+        <item>@string/answer_hard_saponaria</item>
+        <item>@string/answer_hard_sedum</item>
+        <item>@string/answer_hard_snapdragons</item>
+    </string-array>
+</resources>
