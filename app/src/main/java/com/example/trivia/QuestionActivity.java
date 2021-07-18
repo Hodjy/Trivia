@@ -44,6 +44,7 @@ public class QuestionActivity extends AppCompatActivity
         setClockRunnable();
         setAnswerButtonsListener();
 
+        //TODO remove this and get Questions externally (either intent or something else)
         QuestionDataBase questionDataBase = new QuestionDataBase();
         m_GameSessionManager = new GameSessionManager(questionDataBase.getAllQuestions(
                                     getApplicationContext()).get("hard"));
