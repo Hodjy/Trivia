@@ -77,8 +77,6 @@
             android:layout_weight="3"
             android:scaleType="fitXY"
             android:layout_gravity="center"
-            android:src="@drawable/ic_baseline_local_florist_24"
-            android:background="@color/design_default_color_secondary"
             android:id="@+id/questionActivity_questionIV"/>
 
         <Space

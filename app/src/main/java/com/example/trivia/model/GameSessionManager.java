@@ -96,10 +96,9 @@ public class GameSessionManager
         }
     }
 
-    private GameState timeUp()
+    public GameState timeUp()
     {
-        endGame(false);
-
+        loseLifeAndProceed();
         return m_GameState;
     }
 

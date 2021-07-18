@@ -35,9 +35,10 @@ public class QuestionActivity extends AppCompatActivity
 
     private TextView m_TimerCounterTv;
     private Runnable m_Timer_Tick;
-    private int m_SecondsLeft = 15;
-    private final int m_QuestionSecounds = 15;
+    private int m_SecondsLeft;
+    private final int m_QuestionSeconds = 15;
     private Timer m_gameTimer;
+    private Boolean m_IsTimerRuning;
 
     private GameSessionManager m_GameSessionManager;
     private GameState m_GameState;
@@ -57,6 +58,7 @@ public class QuestionActivity extends AppCompatActivity
         m_ScoreTv = findViewById(R.id.questionActivity_scoreTV);
         m_TimerCounterTv = findViewById(R.id.level_counter_time_view);
 
+        m_IsTimerRuning= true;
         setTimerTick();
         setTimer();
 
@@ -65,11 +67,10 @@ public class QuestionActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                int time = 0;
                 AnswerButton btn = (AnswerButton)v;
 
                 btn.showAnswerImage();
-                m_GameState = m_GameSessionManager.answerPressed(btn.getIsCorrect(), time);
+                m_GameState = m_GameSessionManager.answerPressed(btn.getIsCorrect(), m_SecondsLeft);
                 checkGameStateAndUpdateUI();
             }
         };
@@ -102,6 +103,7 @@ public class QuestionActivity extends AppCompatActivity
     {
         updateUI();
 
+
         if(!m_GameState.get_IsGameRunning())
         {
             endGame();
@@ -110,11 +112,13 @@ public class QuestionActivity extends AppCompatActivity
 
     private void updateUI()
     {
+
         m_LivesTv.setText(m_GameState.getCurrentLife() + "");
         m_ScoreTv.setText(m_GameState.getCurrentScore() + "");
 
         if(m_GameState.get_IsGameRunning())
         {
+            resetQuestionTimer();
             setNewQuestion(m_GameState.getCurrentQuestion());
         }
     }
@@ -122,7 +126,9 @@ public class QuestionActivity extends AppCompatActivity
 
     private void endGame()
     {
-        m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_backgraund, this.getApplication().getTheme()));
+        m_gameTimer.cancel();
+        m_GameState.set_IsGameRunning(false);
+        //m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_backgraund, this.getApplication().getTheme()));
         Toast.makeText(this, "Game Ended", Toast.LENGTH_LONG).show();
     }
 
@@ -141,48 +147,52 @@ public class QuestionActivity extends AppCompatActivity
 
         m_Timer_Tick = new Runnable() {
             public void run() {
-                m_SecondsLeft--;
-                m_TimerCounterTv.setText(m_SecondsLeft +"");
-
-                if(m_SecondsLeft <= 5 && m_SecondsLeft>0)
+                if(m_IsTimerRuning)
                 {
-                    //TimerTickingSound();
-                    if(m_SecondsLeft ==5)
-                        TimeTikcingEffect();
-                }
+                    m_SecondsLeft--;
+                    setTimerView(m_SecondsLeft);
 
-                if(m_SecondsLeft == 0) {
-                    //TimeUpSound();
-                    m_gameTimer.cancel();
-                    endGame();
-                    //m_lastRoundScore = m_Compleate_counter;
-                    //m_TimeUpDialog.show();
+                    if(m_SecondsLeft <= 5 && m_SecondsLeft>0)
+                    {
+                        //TimerTickingSound();
+                        //TODO ANIMATION / EFFECT
+
+                        //if(m_SecondsLeft ==5)
+                        // TimeTikcingEffect();
+                    }
+
+                    if(m_SecondsLeft == 0) {
+                        //TimeUpSound();
+                        timeUp();
+                        //m_lastRoundScore = m_Compleate_counter;
+                        //m_TimeUpDialog.show();
+                    }
                 }
             }
         };
     }
 
-    //@SuppressLint("WrongConstant")
-    private void TimeTikcingEffect()
-    {
-        new CountDownTimer(5000, 500) {
-            int count = 0;
-            @Override
-            public void onTick(long millisUntilFinished) {
-                if(count == 0) {
-                    m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_red_backgraund, QuestionActivity.this.getApplication().getTheme()));
-                    count = 1;
-                } else {
-                    m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_red_stroke,QuestionActivity.this.getApplication().getTheme()));
-                    count = 0;
-                }
-            }
-            @Override
-            public void onFinish() {
-                m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_backgraund, QuestionActivity.this.getApplication().getTheme()));
-            }
-        }.start();
-    }
+
+//    private void TimeTikcingEffect()
+//    {
+//        new CountDownTimer(5000, 500) {
+//            int count = 0;
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                if(count == 0) {
+//                    m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_red_backgraund, QuestionActivity.this.getApplication().getTheme()));
+//                    count = 1;
+//                } else {
+//                    m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_red_stroke,QuestionActivity.this.getApplication().getTheme()));
+//                    count = 0;
+//                }
+//            }
+//            @Override
+//            public void onFinish() {
+//                m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_backgraund, QuestionActivity.this.getApplication().getTheme()));
+//            }
+//        }.start();
+//    }
 
     private void TimerMethod()
     {
@@ -191,6 +201,24 @@ public class QuestionActivity extends AppCompatActivity
 
     public void resetQuestionTimer()
     {
-        m_SecondsLeft = m_QuestionSecounds;
+        m_SecondsLeft = m_QuestionSeconds;
+        setTimerView(m_SecondsLeft);
+    }
+
+    public void stopTimer(){
+        m_IsTimerRuning = false;
+    }
+
+    public void resumeTimer(){
+        m_IsTimerRuning = true;
+    }
+
+    private void timeUp(){
+        m_GameState = m_GameSessionManager.timeUp();
+        checkGameStateAndUpdateUI();
+    }
+
+    private void setTimerView(int i_Seconds){
+        m_TimerCounterTv.setText(i_Seconds + "");
     }
 }
