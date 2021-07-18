@@ -30,16 +30,17 @@ public class AnswerButton extends LinearLayout
 
     private void setImageView(Context i_Context) {
         m_AnswerImage = new ImageView(i_Context);
-        m_AnswerImage.setLayoutParams(new LinearLayout.LayoutParams(0, 200,1));
+        m_AnswerImage.setLayoutParams(new LinearLayout.LayoutParams(0, 150,1));
         this.addView(m_AnswerImage);
     }
 
     private void setTextView(Context i_Context) {
 
         m_AnswerTv = new TextView(i_Context);
+        m_AnswerTv.setTextSize(20);
         m_AnswerTv.setTextColor(getResources().getColor(R.color.white, i_Context.getApplicationContext().getTheme()));
         m_AnswerTv.setGravity(Gravity.CENTER);
-        m_AnswerTv.setLayoutParams(new LinearLayout.LayoutParams(0, 200,4));
+        m_AnswerTv.setLayoutParams(new LinearLayout.LayoutParams(0, 150,4));
         this.addView(m_AnswerTv);
     }
 
