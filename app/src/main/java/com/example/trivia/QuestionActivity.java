@@ -80,7 +80,8 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn3.setOnClickListener(answerListener);
         m_Btn4.setOnClickListener(answerListener);
 
-        m_GameSessionManager = new GameSessionManager(QuestionDataBase.getAllQuestions(getApplicationContext()).get("hard"));
+        QuestionDataBase questionDataBase = new QuestionDataBase();
+        m_GameSessionManager = new GameSessionManager(questionDataBase.getAllQuestions(getApplicationContext()).get("hard"));
 
         m_GameState = m_GameSessionManager.initGameSession();
 

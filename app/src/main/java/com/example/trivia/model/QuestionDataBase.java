@@ -14,10 +14,11 @@ import java.util.Hashtable;
  */
 public final class QuestionDataBase {
 
-    private static Context m_Context;
-    private QuestionDataBase(){}
+    private Context m_Context;
+    public QuestionDataBase(){}
 
-    public static Hashtable<String, ArrayList<Question>> getAllQuestions(Context i_ApplicationContext)
+    //TODO make its a properly sealed class (only access with a facade)
+    public Hashtable<String, ArrayList<Question>> getAllQuestions(Context i_ApplicationContext)
     {
         m_Context = i_ApplicationContext;
         Hashtable<String, ArrayList<Question>> hashtable = new Hashtable<>();
@@ -28,7 +29,7 @@ public final class QuestionDataBase {
         return hashtable;
     }
 
-    private static ArrayList<Question> loadEasyQuestions()
+    private ArrayList<Question> loadEasyQuestions()
     {
         ArrayList<Question> easyQuestions = new ArrayList<>();
 
@@ -107,7 +108,7 @@ public final class QuestionDataBase {
         return easyQuestions;
     }
 
-    private static ArrayList<Question> loadMediumQuestions()
+    private ArrayList<Question> loadMediumQuestions()
     {
 
         ArrayList<Question> mediumQuestions = new ArrayList<>();
@@ -188,7 +189,7 @@ public final class QuestionDataBase {
         return mediumQuestions;
     }
 
-    private static ArrayList<Question> loadHardQuestions()
+    private ArrayList<Question> loadHardQuestions()
     {
         ArrayList<Question> hardQuestions = new ArrayList<>();
         String[] names = m_Context.getResources().getStringArray(R.array.answers_hard);
