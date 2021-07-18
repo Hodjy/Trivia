@@ -2,9 +2,12 @@ package com.example.trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +30,9 @@ public class QuestionActivity extends AppCompatActivity
     private AnswerButton m_Btn4;
     private TextView m_LivesTv;
     private TextView m_ScoreTv;
+    private TextView m_TimerCounterTv;
+    private Runnable m_Timer_Tick;
+    private int m_SecondsLeft = 15;
 
     private ArrayList<Question> m_Questions;
     private GameSessionManager m_GameSessionManager;
@@ -45,6 +51,7 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn4 = findViewById(R.id.questionActivity_btn4);
         m_LivesTv = findViewById(R.id.questionActivity_livesTV);
         m_ScoreTv = findViewById(R.id.questionActivity_scoreTV);
+        m_TimerCounterTv = findViewById(R.id.level_counter_time_view);
 
         m_Questions = new ArrayList<>();
 
@@ -67,7 +74,7 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn3.setOnClickListener(answerListener);
         m_Btn4.setOnClickListener(answerListener);
 
-        m_GameSessionManager = new GameSessionManager(QuestionDataBase.loadHardQuestions());
+        m_GameSessionManager = new GameSessionManager(QuestionDataBase.getAllQuestions().get("hard"));
 
         m_GameState = m_GameSessionManager.initGameSession();
 
@@ -111,5 +118,79 @@ public class QuestionActivity extends AppCompatActivity
     private void endGame()
     {
         Toast.makeText(this, "Game Ended", Toast.LENGTH_LONG).show();
+    }
+
+    private void setTimerTick() {
+
+        m_Timer_Tick = new Runnable() {
+            public void run() {
+                m_SecondsLeft--;
+                m_TimerCounterTv.setText(m_SecondsLeft +"");
+
+                if(m_SecondsLeft <= 10 && m_SecondsLeft>0)
+                {
+                    TimerTickingSound();
+                    if(m_SecondsLeft ==5)
+                        TimeTikcingEffect();
+                }
+
+                if(m_secondsLeft == 0) {
+                    TimeUpSound();
+                    m_gameTimer.cancel();
+                    m_lastRoundScore = m_Compleate_counter;
+                    setEnterNameVisabilty();
+                    m_TimeUpDialog.show();
+                    m_timerCounter_TextView.setBackground(getResources().getDrawable(R.drawable.timer_backgraund));
+                }
+            }
+        };
+    }
+
+    private void setEnterNameVisabilty() {
+        EditText enter_name_ET = m_TimeUpDialogView.findViewById(R.id.enter_name_high_score);
+        TextView top_ten_TV = m_TimeUpDialogView.findViewById(R.id.msg_in_top_10__txt);
+        TextView msg_how_many_completed_TV = m_TimeUpDialogView.findViewById(R.id.how_many_level_complete_msg_txt);
+        String msg = getString(R.string.msg_level_compleate_string)+m_lastRoundScore+" "+getString(R.string.levels_string);
+        msg_how_many_completed_TV.setText(msg);
+
+        if(gameManager.isInTopTen(m_Compleate_counter))
+        {
+            enter_name_ET.setVisibility(View.VISIBLE);
+            top_ten_TV.setVisibility(View.VISIBLE);
+            enter_name_ET.requestLayout();
+        }
+        else
+        {
+            enter_name_ET.setVisibility(View.GONE);
+            top_ten_TV.setVisibility(View.GONE);
+            enter_name_ET.requestLayout();
+        }
+    }
+
+    @SuppressLint("WrongConstant")
+    private void TimeTikcingEffect()
+    {
+        new CountDownTimer(10000, 500) {
+            int count = 0;
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if(count == 0) {
+                    m_timerCounter_TextView.setBackground(getResources().getDrawable(R.drawable.timer_red_backgraund));
+                    count = 1;
+                } else {
+                    m_timerCounter_TextView.setBackground(getResources().getDrawable(R.drawable.timer_red_stroke));
+                    count = 0;
+                }
+            }
+            @Override
+            public void onFinish() {
+                m_timerCounter_TextView.setBackground(getResources().getDrawable(R.drawable.timer_backgraund));
+            }
+        }.start();
+    }
+
+    private void TimerMethod()
+    {
+        this.runOnUiThread(m_Timer_Tick);
     }
 }
