@@ -67,7 +67,7 @@ public class QuestionActivity extends AppCompatActivity
         m_Btn3.setOnClickListener(answerListener);
         m_Btn4.setOnClickListener(answerListener);
 
-        m_GameSessionManager = new GameSessionManager(QuestionDataBase.loadEasyQuestions());
+        m_GameSessionManager = new GameSessionManager(QuestionDataBase.loadHardQuestions());
 
         m_GameState = m_GameSessionManager.initGameSession();
 
