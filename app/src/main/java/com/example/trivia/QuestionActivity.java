@@ -2,12 +2,8 @@ package com.example.trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,8 +66,17 @@ public class QuestionActivity extends AppCompatActivity
                 AnswerButton btn = (AnswerButton)v;
 
                 btn.showAnswerImage();
-                m_GameState = m_GameSessionManager.answerPressed(btn.getIsCorrect(), m_SecondsLeft);
-                checkGameStateAndUpdateUI();
+                pauseTimer();
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        m_GameState = m_GameSessionManager.answerPressed(btn.getIsCorrect(), m_SecondsLeft);
+                        checkGameStateAndUpdateUI();
+                    }
+                };
+
+                AppDelayer.DelayApp(3, runnable);
+
             }
         };
 
@@ -119,7 +124,7 @@ public class QuestionActivity extends AppCompatActivity
 
         if(m_GameState.get_IsGameRunning())
         {
-            resetQuestionTimer();
+            resetAndStartQuestionTimer();
             setNewQuestion(m_GameState.getCurrentQuestion());
         }
     }
@@ -200,13 +205,14 @@ public class QuestionActivity extends AppCompatActivity
         this.runOnUiThread(m_Timer_Tick);
     }
 
-    public void resetQuestionTimer()
+    public void resetAndStartQuestionTimer()
     {
         m_SecondsLeft = m_QuestionSeconds;
         setTimerView(m_SecondsLeft);
+        resumeTimer();
     }
 
-    public void stopTimer(){
+    public void pauseTimer(){
         m_IsTimerRuning = false;
     }
 
@@ -214,9 +220,19 @@ public class QuestionActivity extends AppCompatActivity
         m_IsTimerRuning = true;
     }
 
-    private void timeUp(){
-        m_GameState = m_GameSessionManager.timeUp();
-        checkGameStateAndUpdateUI();
+    private void timeUp()
+    {
+        Toast.makeText(this, "Time Up!!!!!", Toast.LENGTH_SHORT).show();
+        pauseTimer();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                m_GameState = m_GameSessionManager.timeUp();
+                checkGameStateAndUpdateUI();
+            }
+        };
+
+        AppDelayer.DelayApp(3, runnable);
     }
 
     private void setTimerView(int i_Seconds){
