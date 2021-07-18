@@ -19,20 +19,18 @@ import java.util.ArrayList;
 
 public class QuestionActivity extends AppCompatActivity
 {
+    //View
     private ImageView m_QuestionIV;
-    private AnswerButton m_Btn1;
-    private AnswerButton m_Btn2;
-    private AnswerButton m_Btn3;
-    private AnswerButton m_Btn4;
+    private ArrayList<AnswerButton> m_AnswerBtns;
     private TextView m_LivesTv;
     private TextView m_ScoreTv;
-
     private TextView m_TimerCounterTv;
+
+    //Non-View
     private Runnable m_ClockRunnable;
     private int m_SecondsLeft;
     private final int m_QuestionSeconds = 15;
     private final int m_ReactionDelaySecs = 2;
-
     private GameSessionManager m_GameSessionManager;
     private GameState m_GameState;
 
@@ -56,11 +54,13 @@ public class QuestionActivity extends AppCompatActivity
 
     private void initViewID()
     {
+        m_AnswerBtns = new ArrayList<>();
+
         m_QuestionIV = findViewById(R.id.questionActivity_questionIV);
-        m_Btn1 = findViewById(R.id.questionActivity_btn1);
-        m_Btn2 = findViewById(R.id.questionActivity_btn2);
-        m_Btn3 = findViewById(R.id.questionActivity_btn3);
-        m_Btn4 = findViewById(R.id.questionActivity_btn4);
+        m_AnswerBtns.add(findViewById(R.id.questionActivity_btn1));
+        m_AnswerBtns.add(findViewById(R.id.questionActivity_btn2));
+        m_AnswerBtns.add(findViewById(R.id.questionActivity_btn3));
+        m_AnswerBtns.add(findViewById(R.id.questionActivity_btn4));
         m_LivesTv = findViewById(R.id.questionActivity_livesTV);
         m_ScoreTv = findViewById(R.id.questionActivity_scoreTV);
         m_TimerCounterTv = findViewById(R.id.level_counter_time_view);
@@ -77,18 +77,18 @@ public class QuestionActivity extends AppCompatActivity
             }
         };
 
-        m_Btn1.setOnClickListener(answerListener);
-        m_Btn2.setOnClickListener(answerListener);
-        m_Btn3.setOnClickListener(answerListener);
-        m_Btn4.setOnClickListener(answerListener);
+        for (AnswerButton btn : m_AnswerBtns)
+        {
+            btn.setOnClickListener(answerListener);
+        }
     }
 
     private void enableUserInput(Boolean i_IsEnabled)
     {
-        m_Btn1.setClickable(i_IsEnabled);
-        m_Btn2.setClickable(i_IsEnabled);
-        m_Btn3.setClickable(i_IsEnabled);
-        m_Btn4.setClickable(i_IsEnabled);
+        for (AnswerButton btn : m_AnswerBtns)
+        {
+            btn.setClickable(i_IsEnabled);
+        }
     }
 
 
@@ -98,10 +98,13 @@ public class QuestionActivity extends AppCompatActivity
         //TODO check if works correctly
         Glide.with(this).load(i_Question.getImgUri()).into(m_QuestionIV);
         //TODO make it random
-        m_Btn1.setAnswerButton(Answers.get(0));
-        m_Btn2.setAnswerButton(Answers.get(1));
-        m_Btn3.setAnswerButton(Answers.get(2));
-        m_Btn4.setAnswerButton(Answers.get(3));
+
+        int i = 0;
+        for (AnswerButton btn : m_AnswerBtns)
+        {
+            btn.setAnswerButton(Answers.get(i));
+            i++;
+        }
     }
 
     /**
