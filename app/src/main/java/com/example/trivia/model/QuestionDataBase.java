@@ -3,12 +3,23 @@ package com.example.trivia.model;
 import android.net.Uri;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public final class QuestionDataBase {
 
     private QuestionDataBase(){}
 
-    public static ArrayList<Question> loadEasyQuestions(){
+    public static Hashtable<String, ArrayList<Question>> getAllQuestions()
+    {
+        Hashtable<String, ArrayList<Question>> hashtable = new Hashtable<>();
+        hashtable.put("easy", loadEasyQuestions());
+        hashtable.put("medium", loadMediumQuestions());
+        hashtable.put("hard", loadHardQuestions());
+
+        return hashtable;
+    }
+
+    private static ArrayList<Question> loadEasyQuestions(){
 
         ArrayList<Question> easyQuestions = new ArrayList<>();
 
@@ -87,7 +98,7 @@ public final class QuestionDataBase {
         return easyQuestions;
     }
 
-    public static ArrayList<Question> loadMediumQuestions(){
+    private static ArrayList<Question> loadMediumQuestions(){
 
         ArrayList<Question> mediumQuestions = new ArrayList<>();
 
@@ -167,7 +178,7 @@ public final class QuestionDataBase {
         return mediumQuestions;
     }
 
-    public static ArrayList<Question> loadHardQuestions(){
+    private static ArrayList<Question> loadHardQuestions(){
         ArrayList<Question> hardQuestions = new ArrayList<>();
 
         hardQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/dandelion"),
