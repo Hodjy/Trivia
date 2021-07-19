@@ -126,7 +126,7 @@ public class QuestionActivity extends AppCompatActivity
      */
     private void answerButtonPressed(AnswerButton i_Btn)
     {
-        SoundManager.getInstance().playSound(QuestionActivity.this, eSoundsIdentifier.BTN_CLICK_SOUND);
+        playAnswerButtonSound(i_Btn.getIsCorrect());
         enableUserInput(false);
 
         i_Btn.showAnswerImage();
@@ -144,6 +144,17 @@ public class QuestionActivity extends AppCompatActivity
         };
 
         AppDelayer.DelayApp(m_ReactionDelaySecs, runnable);
+    }
+
+    private void playAnswerButtonSound(Boolean i_IsCorrect) {
+        if(i_IsCorrect)
+        {
+            SoundManager.getInstance().playSound(QuestionActivity.this, eSoundsIdentifier.CORRECT_ANSWER_SOUND);
+        }
+        else
+        {
+            SoundManager.getInstance().playSound(QuestionActivity.this, eSoundsIdentifier.INCORRECT_ANSWER_SOUND);
+        }
     }
 
 
