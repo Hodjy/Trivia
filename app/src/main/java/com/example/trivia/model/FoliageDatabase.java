@@ -16,6 +16,7 @@ public class FoliageDatabase
     private static Context m_AppContext = null;
     private static Hashtable<String, ArrayList<Foliage>> m_Foliage = null;
 
+    //TODO remove and implement this https://stackoverflow.com/questions/2002288/static-way-to-get-context-in-android
     public static void setContext(Context i_AppContext)
     {
         m_AppContext = i_AppContext;
