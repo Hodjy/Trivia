@@ -37,4 +37,6 @@
     <string name="answer_medium_phlox">שלהבית</string>
     <string name="answer_medium_snowdrop">שלגית</string>
     <string name="answer_medium_tiger_flower">פרח הנמר</string>
+    <string name="main_activity_play">שחק</string>
+    <string name="main_activity_scoreboard">לוח תוצאות</string>
 </resources>

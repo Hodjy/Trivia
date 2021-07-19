@@ -36,4 +36,6 @@
     <string name="answer_medium_spider_flower">Spider Fower</string>
     <string name="answer_medium_tiger_flower">Tiger Flower</string>
     <string name="answer_medium_tulip">Tulip</string>
+    <string name="main_activity_play">Play</string>
+    <string name="main_activity_scoreboard">Scoreboard</string>
 </resources>
