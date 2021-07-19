@@ -3,7 +3,10 @@ package com.example.trivia;
 import android.os.Handler;
 import android.os.Looper;
 
-public class AppDelayer
+/**
+ * This class will be used as the hanlder with the singleton design pattern.
+ */
+public class AppDelayer //TODO rename
 {
     static final Handler handler = new Handler(Looper.getMainLooper());
 
