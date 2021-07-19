@@ -18,6 +18,7 @@ import com.example.trivia.model.QuestionDataBase;
 import com.example.trivia.model.SoundManager;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class QuestionActivity extends AppCompatActivity
 {
@@ -94,19 +95,26 @@ public class QuestionActivity extends AppCompatActivity
         }
     }
 
-
+    /**
+     * Unpacks the Question obj and randomly assigns the Answers to the AnswerButtons.
+     * IMPORTANT: buttons and answers must be of the same amount. Which we decided to be 4.
+     * @param i_Question
+     */
     private void setNewQuestion(Question i_Question)
     {
+        int randIndex = 0;
+        Random rand = new Random();
         ArrayList<Answer> Answers = i_Question.getAnswers();
-        //TODO check if works correctly
-        Glide.with(this).load(i_Question.getImgUri()).into(m_QuestionIV);
-        //TODO make it random
 
-        int i = 0;
+        Glide.with(this).load(i_Question.getImgUri()).into(m_QuestionIV); //load pic
+
+
         for (AnswerButton btn : m_AnswerBtns)
         {
-            btn.setAnswerButton(Answers.get(i));
-            i++;
+            randIndex = rand.nextInt(Answers.size());
+            Answer answer = Answers.get(randIndex);
+            btn.setAnswerButton(answer);
+            Answers.remove(answer);
         }
     }
 

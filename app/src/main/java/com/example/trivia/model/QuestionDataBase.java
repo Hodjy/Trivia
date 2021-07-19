@@ -23,236 +23,60 @@ public final class QuestionDataBase {
     public Hashtable<String, ArrayList<Question>> getAllQuestions(Context i_ApplicationContext)
     {
         m_Context = i_ApplicationContext;
+        String easy = "easy", medium = "medium", hard = "hard";
+
+        FoliageDatabase.setContext(m_Context);
+        Hashtable<String,ArrayList<Foliage>> foliages = FoliageDatabase.getFoliages();
+
         Hashtable<String, ArrayList<Question>> hashtable = new Hashtable<>();
-        hashtable.put("easy", loadEasyQuestions());
-        hashtable.put("medium", loadMediumQuestions());
-        hashtable.put("hard", loadHardQuestions());
+        hashtable.put(easy, loadEasyQuestions(foliages.get(easy)));
+        hashtable.put(medium, loadMediumQuestions(foliages.get(medium)));
+        hashtable.put(hard, loadHardQuestions(foliages.get(hard)));
 
         return hashtable;
     }
 
-    private ArrayList<Question> loadEasyQuestions()
+    //The Load methods will iterate for each foliage and a the corresponding names string
+    //and attach them to the new questions. the new questions will handle the creation of
+    //incorrect answers.
+    private ArrayList<Question> loadEasyQuestions(ArrayList<Foliage> i_EasyFoliages)
     {
         ArrayList<Question> easyQuestions = new ArrayList<>();
+        ArrayList<String> easyNames = new ArrayList<>(Arrays.asList(
+                m_Context.getResources().getStringArray(R.array.answers_easy)));
 
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/daisy"),
-                new Answer("tt", false),
-                new Answer("ss", false),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_daisy), true)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/cyclamen"),
-                new Answer("Aba", false),
-                new Answer("Aba", false),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_cyclamen), true)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/rose"),
-                new Answer("Aba", false),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_rose), true),
-                new Answer("sss", false)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/sunflower"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_sunflower), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/anemone"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_anemone), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/bleeding_heart"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_bleeding_heart), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/iris"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_iris), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/jasmine"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_jasmine), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/lilac"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_lilac), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/lotus"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_lotus), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/narcissus"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_narcissus), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        easyQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/orchid"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_easy_orchid), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
+        for (Foliage foliage : i_EasyFoliages)
+        {
+            easyQuestions.add(new Question(foliage, easyNames));
+        }
 
         return easyQuestions;
     }
 
-    private ArrayList<Question> loadMediumQuestions()
+    private ArrayList<Question> loadMediumQuestions(ArrayList<Foliage> i_MediumFoliages)
     {
-
         ArrayList<Question> mediumQuestions = new ArrayList<>();
+        ArrayList<String> mediumNames = new ArrayList<>(Arrays.asList(
+                m_Context.getResources().getStringArray(R.array.answers_medium)));
 
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/lily"),
-                new Answer("tt", false),
-                new Answer("ss", false),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_lily), true)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/nepeta"),
-                new Answer("Aba", false),
-                new Answer("Aba", false),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_nepeta), true)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/nicotiana"),
-                new Answer("Aba", false),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_nicotiana), true),
-                new Answer("sss", false)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/nymphea"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_nymphea), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/passion_flower"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_passion_flower), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/peony"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_peony), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/petunia"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_petunia), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/phlox"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_phlox), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/snowdrop"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_snowdrop), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/spider_flower"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_spider_flower), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/tiger_flower"),
-                new Answer("Aba", false),
-                new Answer(m_Context.getString(R.string.answer_medium_tiger_flower), true),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
-        mediumQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/tulip"),
-                new Answer("tulip", true),
-                new Answer(m_Context.getString(R.string.answer_medium_tulip), false),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));
-
+        for(Foliage foliage : i_MediumFoliages)
+        {
+            mediumQuestions.add(new Question(foliage, mediumNames));
+        }
 
         return mediumQuestions;
     }
 
-    private ArrayList<Question> loadHardQuestions()
+    private ArrayList<Question> loadHardQuestions(ArrayList<Foliage> i_HardFoliages)
     {
         ArrayList<Question> hardQuestions = new ArrayList<>();
-        ArrayList<String> names = new ArrayList<>(Arrays.asList(m_Context.getResources().getStringArray(R.array.answers_hard)));
+        ArrayList<String> hardNames = new ArrayList<>(Arrays.asList(
+                m_Context.getResources().getStringArray(R.array.answers_hard)));
 
-
-        hardQuestions.add(new Question(
-                    new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/dandelion"),
-                            m_Context.getString(R.string.answer_hard_dandelion)), names));
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/echinacea"),
-                        m_Context.getString(R.string.answer_hard_echinacea)), names));
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/forsythia"),
-                        m_Context.getString(R.string.answer_hard_forsythia)), names));
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/heliotrope"),
-                        m_Context.getString(R.string.answer_hard_heliotrope)), names));
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/hibiscus"),
-                        m_Context.getString(R.string.answer_hard_hibiscus)), names));
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/magnolia"),
-                        m_Context.getString(R.string.answer_hard_magnolia)), names));
-
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/mallow"),
-                        m_Context.getString(R.string.answer_hard_mallow)), names));
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/nemesia"),
-                        m_Context.getString(R.string.answer_hard_nemesia)), names));
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/nerine"),
-                        m_Context.getString(R.string.answer_hard_nerine)), names));
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/saponaria"),
-                        m_Context.getString(R.string.answer_hard_saponaria)), names));
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/sedum"),
-                        m_Context.getString(R.string.answer_hard_sedum)), names));
-
-        hardQuestions.add(new Question(
-                new Foliage(Uri.parse("android.resource://com.example.trivia/drawable/snapdragons"),
-                        m_Context.getString(R.string.answer_hard_snapdragons)), names));
-
-        /* Old format
-        hardQuestions.add(new Question(Uri.parse("android.resource://com.example.trivia/drawable/snapdragons"),
-                new Answer(m_Context.getString(R.string.answer_hard_snapdragons), true),
-                new Answer("orchid", false),
-                new Answer("Aba", false),
-                new Answer("Aba", false)));*/
-
+        for (Foliage foliage : i_HardFoliages)
+        {
+            hardQuestions.add(new Question(foliage, hardNames));
+        }
 
         return hardQuestions;
     }
