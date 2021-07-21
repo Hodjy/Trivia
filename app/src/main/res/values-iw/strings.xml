@@ -38,5 +38,7 @@
     <string name="answer_medium_snowdrop">שלגית</string>
     <string name="answer_medium_tiger_flower">פרח הנמר</string>
     <string name="main_activity_play">שחק</string>
-    <string name="main_activity_scoreboard">לוח תוצאות</string>
+    <string name="main_activity_leaderboard">לוח תוצאות</string>
+    <string name="leaderboard_activity_title">לוח תוצאות</string>
+    <string name="leaderboard_activity_back">חזור</string>
 </resources>

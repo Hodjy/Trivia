@@ -11,7 +11,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Trivia">
-        <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".model.Leaderboard"></activity>
+        <activity android:name=".ResultActivity" />
         <activity android:name=".QuestionActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

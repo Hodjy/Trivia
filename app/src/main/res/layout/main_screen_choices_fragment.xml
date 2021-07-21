@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:text="@string/main_activity_scoreboard"
+        android:text="@string/main_activity_leaderboard"
         android:textStyle="bold"
         android:textAllCaps="false"
         android:gravity="center"

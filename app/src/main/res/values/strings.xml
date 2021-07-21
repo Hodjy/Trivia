@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Trivia</string>
+    <string name="leaderboard_activity_title">Leaderboard</string>
     <string name="answer_easy_sunflower">Sunflower</string>
     <string name="answer_easy_rose">Rose</string>
     <string name="answer_easy_cyclamen">Cyclamen</string>
@@ -37,5 +38,6 @@
     <string name="answer_medium_tiger_flower">Tiger Flower</string>
     <string name="answer_medium_tulip">Tulip</string>
     <string name="main_activity_play">Play</string>
-    <string name="main_activity_scoreboard">Scoreboard</string>
+    <string name="main_activity_leaderboard">Leaderboard</string>
+    <string name="leaderboard_activity_back">Back</string>
 </resources>
