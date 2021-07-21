@@ -131,7 +131,7 @@ public class GameSessionManager
 
     private void loadAndShuffleQuestions()
     {
-        ArrayList<Question> questions = QuestionDataBase.
+        ArrayList<Question> questions = QuestionsCreator.
                 getQuestionsByDifficulty(m_Difficulty.getDifficulty());
         m_Questions = shuffleQuestions(questions);
     }

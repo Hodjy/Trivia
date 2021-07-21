@@ -33,7 +33,7 @@ public class ResultActivity extends AppCompatActivity {
         m_SaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO save on file
+                //TODO save on file and make strings not HARD-CODED
 
                 m_SaveBtn.setText("Saved");
                 m_SaveBtn.setEnabled(false);

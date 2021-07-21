@@ -2,6 +2,7 @@ package com.example.trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -209,6 +210,10 @@ public class QuestionActivity extends AppCompatActivity
 
         //m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_backgraund, this.getApplication().getTheme()));
         Toast.makeText(this, "Game Ended", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+        AppDelayer.ClearAllRunnables();
+        finish();
+        startActivity(intent);
     }
 
     private void continueGame()

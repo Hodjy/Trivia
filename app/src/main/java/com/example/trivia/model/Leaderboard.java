@@ -8,9 +8,9 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.trivia.R;
+import com.example.trivia.model.save.UserScore;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Leaderboard extends AppCompatActivity {
 

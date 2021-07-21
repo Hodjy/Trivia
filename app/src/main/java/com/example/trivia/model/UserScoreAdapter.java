@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.trivia.R;
+import com.example.trivia.model.save.UserScore;
 
 import java.util.List;
 

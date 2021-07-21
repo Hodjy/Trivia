@@ -18,10 +18,10 @@ import java.util.List;
  * The Questions database. creating the questions here.
  * Must get the applications context in order to properly work (needed for the string resources)
  */
-public class QuestionDataBase {
+public class QuestionsCreator {
 
     private static Hashtable<String, ArrayList<Question>> m_Questions = null;
-    public QuestionDataBase(){}
+    public QuestionsCreator(){}
 
     public static ArrayList<Question> getQuestionsByDifficulty(String i_Difficulty)
     {
