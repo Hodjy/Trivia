@@ -1,0 +1,64 @@
+package com.example.trivia.fragments;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.example.trivia.R;
+import com.example.trivia.model.difficulty.DifficultyEasy;
+import com.example.trivia.model.difficulty.DifficultyHard;
+import com.example.trivia.model.difficulty.DifficultyMedium;
+import com.example.trivia.model.difficulty.IDifficulty;
+
+public class DifficultyFragment extends Fragment
+{
+    public DifficultyFragment() {}
+
+    public interface OnDifficultyClickFragmentListener
+    {
+        void onDifficultyClick(IDifficulty i_Difficulty);
+    }
+
+    OnDifficultyClickFragmentListener m_Callback;
+
+    @Override
+    public void onAttach(@NonNull Context i_Context)
+    {
+        super.onAttach(i_Context);
+
+        try {
+            m_Callback = (OnDifficultyClickFragmentListener)i_Context;
+        }
+        catch (ClassCastException ex)
+        {
+            throw new ClassCastException("The activity must implement the interface 'OnDifficultyClickFragmentListener'.");
+        }
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
+        View root = inflater.inflate(R.layout.difficulty_fragment, container, false);
+
+        Button easyBtn = root.findViewById(R.id.difficulty_popup_easy_btn);
+        Button mediumBtn = root.findViewById(R.id.difficulty_popup_medium_btn);
+        Button hardBtn = root.findViewById(R.id.difficulty_popup_hard_btn);
+        Button backBtn = root.findViewById(R.id.difficulty_fragment_back_btn);
+
+        easyBtn.setOnClickListener(v -> m_Callback.onDifficultyClick(new DifficultyEasy()));
+        mediumBtn.setOnClickListener(v -> m_Callback.onDifficultyClick(new DifficultyMedium()));
+        hardBtn.setOnClickListener(v -> m_Callback.onDifficultyClick(new DifficultyHard()));
+        backBtn.setOnClickListener(v -> getParentFragmentManager().popBackStack());
+        return root;
+    }
+}
