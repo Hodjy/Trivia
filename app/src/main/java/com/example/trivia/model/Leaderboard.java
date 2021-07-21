@@ -30,7 +30,7 @@ public class Leaderboard extends AppCompatActivity {
 
         ListView userScoreList = findViewById(R.id.leaderboard_activity_userScoreList);
 
-        List<UserScore> usersScores = new ArrayList<>();
+        ArrayList<UserScore> usersScores = new ArrayList<>();
 
         //TODO extract users scores from file
         //usersScores =
