@@ -3,7 +3,11 @@ package com.example.trivia.model;
 import android.content.Context;
 import android.net.Uri;
 
+import com.example.trivia.ApplicationContext;
 import com.example.trivia.R;
+import com.example.trivia.model.difficulty.DifficultyEasy;
+import com.example.trivia.model.difficulty.DifficultyHard;
+import com.example.trivia.model.difficulty.DifficultyMedium;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,45 +18,58 @@ import java.util.List;
  * The Questions database. creating the questions here.
  * Must get the applications context in order to properly work (needed for the string resources)
  */
-public final class QuestionDataBase {
+public class QuestionDataBase {
 
-    private Context m_Context;
-    private Hashtable<String, ArrayList<Question>> m_Questions = null;
+    private static Hashtable<String, ArrayList<Question>> m_Questions = null;
     public QuestionDataBase(){}
 
-    //TODO make its a properly sealed class (only access with a facade)
-    public Hashtable<String, ArrayList<Question>> getAllQuestions(Context i_ApplicationContext)
+    public static ArrayList<Question> getQuestionsByDifficulty(String i_Difficulty)
     {
+        ArrayList<Question> questions;
+
         if(m_Questions == null)
         {
-            m_Context = i_ApplicationContext;
-            String easy = "easy", medium = "medium", hard = "hard";
-
-            FoliageDatabase.setContext(m_Context);
-            Hashtable<String,ArrayList<Foliage>> foliages = FoliageDatabase.getFoliages();
-            Hashtable<String, ArrayList<Question>> questionsHashtable = new Hashtable<>();
-
-            questionsHashtable.put(easy, loadEasyQuestions(foliages.get(easy)));
-            questionsHashtable.put(medium, loadMediumQuestions(foliages.get(medium)));
-            questionsHashtable.put(hard, loadHardQuestions(foliages.get(hard)));
-
-            m_Questions = questionsHashtable;
+            loadAllQuestions();
         }
 
-        return m_Questions;
+        questions = m_Questions.get(i_Difficulty);
+        //if not null, create a copy (done this way to avoid exeption).
+        if (questions != null)
+        {
+            questions = new ArrayList<Question>(questions);
+        }
+
+        return questions;
     }
 
-    private ArrayList<Question> loadEasyQuestions(ArrayList<Foliage> i_EasyFoliages)
+    //TODO make its a properly sealed class (only access with a facade)
+    private static void loadAllQuestions()
+    {
+        String easy = new DifficultyEasy().getDifficulty(),
+                medium = new DifficultyMedium().getDifficulty(),
+                hard = new DifficultyHard().getDifficulty();
+
+        Hashtable<String,ArrayList<Foliage>> foliages = FoliageDatabase.getFoliages();
+        Hashtable<String, ArrayList<Question>> questionsHashtable = new Hashtable<>();
+
+        questionsHashtable.put(easy, loadEasyQuestions(foliages.get(easy)));
+        questionsHashtable.put(medium, loadMediumQuestions(foliages.get(medium)));
+        questionsHashtable.put(hard, loadHardQuestions(foliages.get(hard)));
+
+        m_Questions = questionsHashtable;
+    }
+
+    private static  ArrayList<Question> loadEasyQuestions(ArrayList<Foliage> i_EasyFoliages)
     {
         return createQuestionsList(i_EasyFoliages, R.array.answers_easy);
     }
 
-    private ArrayList<Question> loadMediumQuestions(ArrayList<Foliage> i_MediumFoliages)
+    private static ArrayList<Question> loadMediumQuestions(ArrayList<Foliage> i_MediumFoliages)
     {
         return createQuestionsList(i_MediumFoliages, R.array.answers_medium);
     }
 
-    private ArrayList<Question> loadHardQuestions(ArrayList<Foliage> i_HardFoliages)
+    private static ArrayList<Question> loadHardQuestions(ArrayList<Foliage> i_HardFoliages)
     {
         return createQuestionsList(i_HardFoliages, R.array.answers_hard);
     }
@@ -66,11 +83,12 @@ public final class QuestionDataBase {
      * @param i_DifficultyNamesStringArrayID
      * @return
      */
-    private ArrayList<Question> createQuestionsList(ArrayList<Foliage> i_Foliages, int i_DifficultyNamesStringArrayID)
+    private static ArrayList<Question> createQuestionsList(ArrayList<Foliage> i_Foliages, int i_DifficultyNamesStringArrayID)
     {
+        Context appContext = ApplicationContext.getContext();
         ArrayList<Question> createdQuestions = new ArrayList<>();
         ArrayList<String> difficultyFoliagesNames = new ArrayList<>(Arrays.asList(
-                m_Context.getResources().getStringArray(i_DifficultyNamesStringArrayID)));
+                appContext.getResources().getStringArray(i_DifficultyNamesStringArrayID)));
 
         for (Foliage foliage : i_Foliages) {
             createdQuestions.add(new Question(foliage, difficultyFoliagesNames));

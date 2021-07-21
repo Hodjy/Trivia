@@ -17,6 +17,7 @@ import com.example.trivia.model.GameState;
 import com.example.trivia.model.Question;
 import com.example.trivia.model.QuestionDataBase;
 import com.example.trivia.model.SoundManager;
+import com.example.trivia.model.difficulty.ADifficulty;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,7 +34,6 @@ public class QuestionActivity extends AppCompatActivity
     //Non-View
     private Runnable m_ClockRunnable;
     private int m_SecondsLeft;
-    private final int m_QuestionSeconds = 15;
     private final int m_ReactionDelaySecs = 2;
     private GameSessionManager m_GameSessionManager;
     private GameState m_GameState;
@@ -47,11 +47,10 @@ public class QuestionActivity extends AppCompatActivity
         initViewID();
         setClockRunnable();
         setAnswerButtonsListener();
-
+        Bundle bundle = getIntent().getExtras();
+        ADifficulty difficulty = (ADifficulty)bundle.getSerializable("Difficulty");
         //TODO remove this and get Questions externally (either intent or something else)
-        QuestionDataBase questionDataBase = new QuestionDataBase();
-        m_GameSessionManager = new GameSessionManager(questionDataBase.getAllQuestions(
-                                    getApplicationContext()).get("hard"));
+        m_GameSessionManager = new GameSessionManager(difficulty); //questionDataBase.getAllQuestions(getApplicationContext()).get("hard")
         m_GameState = m_GameSessionManager.initGameSession();
 
         continueGame();
@@ -130,7 +129,7 @@ public class QuestionActivity extends AppCompatActivity
         playAnswerButtonSound(i_Btn.getIsCorrect());
         enableUserInput(false);
 
-        i_Btn.showAnswerImage();
+        revealButtonToUser(i_Btn);
         pauseClockRunnable();
         m_GameState = m_GameSessionManager.answerPressed(i_Btn.getIsCorrect(), m_SecondsLeft);
         updateLivesAndScore();
@@ -145,6 +144,27 @@ public class QuestionActivity extends AppCompatActivity
         };
 
         AppDelayer.DelayApp(m_ReactionDelaySecs, runnable);
+    }
+
+    /**
+     * Will reveal if the answer was correct, if not will reveal the other correct one.
+     * @param i_Btn
+     */
+    private void revealButtonToUser(AnswerButton i_Btn)
+    {
+        if(!i_Btn.getIsCorrect()) //if not correct, look for the correct one and reveal it.
+        {
+            for(AnswerButton answerButton : m_AnswerBtns)
+            {
+                if(answerButton.getIsCorrect())
+                {
+                    answerButton.showAnswerImage();
+                    break;
+                }
+            }
+        }
+
+        i_Btn.showAnswerImage();
     }
 
     private void playAnswerButtonSound(Boolean i_IsCorrect) {
@@ -257,7 +277,7 @@ public class QuestionActivity extends AppCompatActivity
 
     public void resetAndStartQuestionTimer()
     {
-        m_SecondsLeft = m_QuestionSeconds;
+        m_SecondsLeft = m_GameSessionManager.getTimeForQuestion();
         setTimerView(m_SecondsLeft);
         resumeClockRunnable();
     }

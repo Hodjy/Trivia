@@ -15,7 +15,7 @@ import com.example.trivia.R;
 import com.example.trivia.model.difficulty.DifficultyEasy;
 import com.example.trivia.model.difficulty.DifficultyHard;
 import com.example.trivia.model.difficulty.DifficultyMedium;
-import com.example.trivia.model.difficulty.IDifficulty;
+import com.example.trivia.model.difficulty.ADifficulty;
 
 public class DifficultyFragment extends Fragment
 {
@@ -23,7 +23,7 @@ public class DifficultyFragment extends Fragment
 
     public interface OnDifficultyClickFragmentListener
     {
-        void onDifficultyClick(IDifficulty i_Difficulty);
+        void onDifficultyClick(ADifficulty i_Difficulty);
     }
 
     OnDifficultyClickFragmentListener m_Callback;

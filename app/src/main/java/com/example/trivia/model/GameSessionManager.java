@@ -1,8 +1,9 @@
 package com.example.trivia.model;
 
-import com.example.trivia.AnswerButton;
+import com.example.trivia.model.difficulty.ADifficulty;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Game session class, must be initialised with initGameSession after creation.
@@ -13,10 +14,12 @@ public class GameSessionManager
     private ArrayList<Question> m_Questions;
     private GameState m_GameState;
     private int m_CurrentQuestionCounter;
+    private ADifficulty m_Difficulty;
 
-    public GameSessionManager(ArrayList<Question> i_Questions)
+    public GameSessionManager(ADifficulty i_Difficulty)
     {
-        m_Questions = i_Questions;
+        m_Difficulty = i_Difficulty;
+        loadAndShuffleQuestions();
     }
 
     public GameState initGameSession()
@@ -115,4 +118,43 @@ public class GameSessionManager
             //lose, check if because of time or lives and send corresponding message.
         }
     }
+
+    public int getTimeForQuestion()
+    {
+        return m_Difficulty.getTimeForQuestion();
+    }
+
+    public String getDifficulty()
+    {
+        return m_Difficulty.getDifficulty();
+    }
+
+    private void loadAndShuffleQuestions()
+    {
+        ArrayList<Question> questions = QuestionDataBase.
+                getQuestionsByDifficulty(m_Difficulty.getDifficulty());
+        m_Questions = shuffleQuestions(questions);
+    }
+
+    private ArrayList<Question> shuffleQuestions(ArrayList<Question> i_Questions)
+    {
+        int length = i_Questions.size();
+        ArrayList<Question> randomizedQuestions = new ArrayList<>();
+
+        if(length > 0)
+        {
+            Random rand = new Random();
+            int randomIndex = 0;
+
+            for (int i = 0; i< length; i++)
+            {
+                randomIndex = rand.nextInt(i_Questions.size());
+                Question question = i_Questions.get(randomIndex);
+                randomizedQuestions.add(question);
+                i_Questions.remove(question);
+            }
+        }
+         return randomizedQuestions;
+    }
+
 }

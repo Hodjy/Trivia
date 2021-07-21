@@ -58,6 +58,6 @@ public class Question
 
     public ArrayList<Answer> getAnswers()
     {
-        return  m_Answers;
+        return  new ArrayList<>(m_Answers);
     }
 }

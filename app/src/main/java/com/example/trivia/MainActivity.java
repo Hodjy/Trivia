@@ -13,7 +13,7 @@ import android.widget.Button;
 import com.example.trivia.enums.eMainActivityFragmentTags;
 import com.example.trivia.fragments.DifficultyFragment;
 import com.example.trivia.fragments.MainScreenFragment;
-import com.example.trivia.model.difficulty.IDifficulty;
+import com.example.trivia.model.difficulty.ADifficulty;
 
 public class MainActivity extends AppCompatActivity implements DifficultyFragment.OnDifficultyClickFragmentListener
 {
@@ -44,15 +44,16 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
     }
 
     @Override
-    public void onDifficultyClick(IDifficulty i_Difficulty)
+    public void onDifficultyClick(ADifficulty i_Difficulty)
     {
         getSupportFragmentManager().popBackStack();
         startGame(i_Difficulty);
     }
 
-    private void startGame(IDifficulty i_Difficulty)
+    private void startGame(ADifficulty i_Difficulty)
     {
         Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+        intent.putExtra("Difficulty", i_Difficulty);
         startActivity(intent);
     }
 
