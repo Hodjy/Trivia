@@ -15,7 +15,6 @@ import com.example.trivia.model.AppDelayer;
 import com.example.trivia.model.GameSessionManager;
 import com.example.trivia.model.GameState;
 import com.example.trivia.model.Question;
-import com.example.trivia.model.QuestionDataBase;
 import com.example.trivia.model.SoundManager;
 import com.example.trivia.model.difficulty.ADifficulty;
 
@@ -54,6 +53,13 @@ public class QuestionActivity extends AppCompatActivity
         m_GameState = m_GameSessionManager.initGameSession();
 
         continueGame();
+    }
+
+    @Override
+    protected void onPause() {
+        AppDelayer.ClearAllRunnables();
+        finish();
+        super.onPause();
     }
 
     private void initViewID()
