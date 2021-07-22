@@ -42,7 +42,7 @@ public class SaveManager
             userData = (ArrayList<UserScore>)ois.readObject();
             ois.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            userData = null;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

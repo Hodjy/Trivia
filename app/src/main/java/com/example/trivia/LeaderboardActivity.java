@@ -32,13 +32,14 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         ListView userScoreList = findViewById(R.id.leaderboard_activity_userScoreList);
 
-        ArrayList<UserScore> usersScores = new ArrayList<>();
+        ArrayList<UserScore> usersScores;
 
-        //TODO extract users scores from file
         usersScores = SaveManager.LoadFromFile();
 
-        UserScoreAdapter userScoreAdapter = new UserScoreAdapter(usersScores);
-
-        userScoreList.setAdapter(userScoreAdapter);
+        if(usersScores != null)
+        {
+            UserScoreAdapter userScoreAdapter = new UserScoreAdapter(usersScores);
+            userScoreList.setAdapter(userScoreAdapter);
+        }
     }
 }
