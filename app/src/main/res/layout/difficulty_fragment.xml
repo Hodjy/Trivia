@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:layout_margin="5dp"
-        android:text="Easy"
+        android:text="@string/difficulty_easy"
         android:id="@+id/difficulty_popup_easy_btn"/>
 
     <Space
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:text="Medium"
+        android:text="@string/difficulty_medium"
         android:layout_margin="5dp"
         android:id="@+id/difficulty_popup_medium_btn"/>
 
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:text="Hard"
+        android:text="@string/difficulty_hard"
         android:layout_margin="5dp"
         android:id="@+id/difficulty_popup_hard_btn"/>
 

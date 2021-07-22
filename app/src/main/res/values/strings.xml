@@ -45,4 +45,9 @@
     <string name="result_activity_enter_name">Enter your name here</string>
     <string name="result_activity_save">Save</string>
     <string name="result_activity_saved">Saved</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+    <string name="main_activity_tap_here">Tap here</string>
+    <string name="back">Back</string>
 </resources>

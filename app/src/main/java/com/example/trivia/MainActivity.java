@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.trivia.enums.eMainActivityFragmentTags;
 import com.example.trivia.fragments.DifficultyFragment;
@@ -29,18 +30,23 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button tstBtn = findViewById(R.id.aatest);
+        TextView tapHereTV = findViewById(R.id.main_activity_tap_hereTV);
         m_fragmentManager = getSupportFragmentManager();
 
-       tstBtn.setOnClickListener(new View.OnClickListener() {
+       tapHereTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                m_fragmentManager.beginTransaction().add(R.id.main_activity_fragment_container, new MainScreenFragment(),
-                        eMainActivityFragmentTags.MAIN_SCREEN_FRAGMENT.toString())
-                        .commit();
+                disableTextViewAndShowMainFragment((TextView) v);
 
             }
         });
+    }
+
+    private void disableTextViewAndShowMainFragment(TextView i_TextView) {
+        i_TextView.setEnabled(false);
+        m_fragmentManager.beginTransaction().add(R.id.main_activity_fragment_container, new MainScreenFragment(),
+                eMainActivityFragmentTags.MAIN_SCREEN_FRAGMENT.toString())
+                .commit();
     }
 
     @Override

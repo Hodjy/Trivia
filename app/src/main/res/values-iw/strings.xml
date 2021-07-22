@@ -46,4 +46,9 @@
     <string name="result_activity_enter_name">הכנס כאן את שמך</string>
     <string name="result_activity_save">שמור</string>
     <string name="result_activity_saved">נשמר</string>
+    <string name="difficulty_easy">קל</string>
+    <string name="difficulty_medium">בינוני</string>
+    <string name="difficulty_hard">קשה</string>
+    <string name="main_activity_tap_here">לחץ כאן</string>
+    <string name="back">חזור</string>
 </resources>
