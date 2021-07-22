@@ -13,20 +13,22 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/main_activity_how_to_play_btn"/>
+            android:id="@+id/main_activity_how_to_play_btn"
+            android:background="@drawable/ic_outline_live_help_24"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_weight="6"
             android:layout_height="match_parent"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/main_activity_sound_btn"/>
+            android:id="@+id/main_activity_sound_btn"
+            android:background="@drawable/ic_outline_volume_up"/>
 
     </LinearLayout>
 
