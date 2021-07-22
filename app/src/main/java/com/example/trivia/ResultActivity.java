@@ -52,10 +52,10 @@ public class ResultActivity extends AppCompatActivity {
                 {
                     //TODO save on file and make strings not HARD-CODED
 
-                    SaveManager.SaveToFile(new UserScore(userName, Integer.parseInt(m_PlayerScoreTv.getText().toString())));
+                    SaveManager.AddUserScoreToFile(new UserScore(userName, Integer.parseInt(m_PlayerScoreTv.getText().toString())));
 
                     m_SaveBtn.setText(getResources().getString(R.string.result_activity_saved));
-                    m_SaveBtn.setEnabled(false);
+                    //m_SaveBtn.setEnabled(false);
                 }
             }
         });

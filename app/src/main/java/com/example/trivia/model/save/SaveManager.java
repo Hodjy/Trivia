@@ -15,8 +15,9 @@ import static android.content.Context.MODE_PRIVATE;
 public class SaveManager
 {
     private static final String FILE_NAME = "SavedScores";
+    private static final int SCORE_LIST_SIZE = 20;
 
-    public static void SaveToFile(ArrayList<UserScore> i_DataToSave)
+    private static void SaveToFile(ArrayList<UserScore> i_DataToSave)
     {
         try {
             FileOutputStream fos = ApplicationContext.getContext()
@@ -50,5 +51,37 @@ public class SaveManager
 
         return userData;
     }
-    
+
+
+    public static void AddUserScoreToFile(UserScore i_UserScore){
+
+        ArrayList<UserScore> UserScoreList = LoadFromFile();
+
+        if(UserScoreList !=null)
+        {
+            int i=0;
+
+            for(UserScore userScore: UserScoreList)
+            {
+                if(userScore.getScore() <= i_UserScore.getScore())
+                {
+                    UserScoreList.add(i,i_UserScore);
+                    break;
+                }
+                i++;
+            }
+
+            if(UserScoreList.size() > SCORE_LIST_SIZE)
+            {
+                UserScoreList.subList(SCORE_LIST_SIZE,UserScoreList.size()).clear();
+            }
+        }
+        else
+        {
+            UserScoreList = new ArrayList<UserScore>();
+            UserScoreList.add(i_UserScore);
+        }
+
+        SaveToFile(UserScoreList);
+    }
 }

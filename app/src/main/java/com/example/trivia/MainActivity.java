@@ -172,6 +172,9 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
         }
         else
         {
+            SoundManager.getInstance().setPlayMusic(true);
+            SoundManager.getInstance().playSound(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
+            SoundManager.getInstance().pauseSound();
             m_soundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
         }
     }
