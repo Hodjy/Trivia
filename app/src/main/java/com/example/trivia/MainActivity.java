@@ -18,13 +18,19 @@ import com.example.trivia.fragments.MainScreenFragment;
 import com.example.trivia.model.SoundManager;
 import com.example.trivia.model.difficulty.ADifficulty;
 
-public class MainActivity extends AppCompatActivity implements DifficultyFragment.OnDifficultyClickFragmentListener
+public class MainActivity extends AppCompatActivity implements DifficultyFragment.OnDifficultyClickFragmentListener, MainScreenFragment.MainScreenFragmentListener
 {
     private AlertDialog.Builder m_DialogBuilder;
     private AlertDialog m_Dialog;
     private Button m_soundBtn;
     private int flipflop = 0;
     private FragmentManager m_fragmentManager;
+
+    @Override
+    public void onLeaderBoardClick() {
+        Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

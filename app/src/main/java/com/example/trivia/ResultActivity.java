@@ -13,11 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trivia.model.difficulty.ADifficulty;
+import com.example.trivia.model.save.SaveManager;
+import com.example.trivia.model.save.UserScore;
 
 public class ResultActivity extends AppCompatActivity {
 
     private TextView m_ResultTv;
     private TextView m_YourScoreTv;
+    private TextView m_PlayerScoreTv;
     private TextView m_HighestScoreTv;
     private EditText m_EnterNameEd;
     private Button m_SaveBtn;
@@ -38,7 +41,9 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(m_EnterNameEd.getText().toString().equals(""))
+                String userName = m_EnterNameEd.getText().toString();
+
+                if(userName.equals(""))
                 {
                     Toast.makeText(ResultActivity.this, getResources().getString(R.string.result_activity_please_enter_name),
                             Toast.LENGTH_SHORT).show();
@@ -46,6 +51,8 @@ public class ResultActivity extends AppCompatActivity {
                 else
                 {
                     //TODO save on file and make strings not HARD-CODED
+
+                    SaveManager.SaveToFile(new UserScore(userName, Integer.parseInt(m_PlayerScoreTv.getText().toString())));
 
                     m_SaveBtn.setText(getResources().getString(R.string.result_activity_saved));
                     m_SaveBtn.setEnabled(false);
@@ -89,7 +96,8 @@ public class ResultActivity extends AppCompatActivity {
     private void initViewID(){
 
         m_ResultTv = findViewById(R.id.result_activity_resultTv);
-        m_YourScoreTv = findViewById(R.id.result_activity_playerScoreTv);
+        m_PlayerScoreTv = findViewById(R.id.result_activity_playerScoreTv);
+        m_YourScoreTv = findViewById(R.id.result_activity_yourScoreTv);
         m_EnterNameEd = findViewById(R.id.result_activity_enterNameEd);
         m_SaveBtn = findViewById(R.id.result_activity_saveBtn);
         m_HomeIB = findViewById(R.id.result_activity_homeIB);
@@ -100,6 +108,6 @@ public class ResultActivity extends AppCompatActivity {
     private void setPlayerScore(){
 
         SharedPreferences sp = getSharedPreferences("match details", MODE_PRIVATE);
-        m_YourScoreTv.setText(m_YourScoreTv.getText().toString() + " " + sp.getString("score","") );
+        m_PlayerScoreTv.setText(sp.getString("score","0"));
     }
 }

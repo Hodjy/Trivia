@@ -53,8 +53,7 @@ public class QuestionActivity extends AppCompatActivity
         setAnswerButtonsListener();
         Bundle bundle = getIntent().getExtras();
         m_Difficulty = (ADifficulty)bundle.getSerializable("Difficulty");
-        //TODO remove this and get Questions externally (either intent or something else)
-        m_GameSessionManager = new GameSessionManager(m_Difficulty); //questionDataBase.getAllQuestions(getApplicationContext()).get("hard")
+        m_GameSessionManager = new GameSessionManager(m_Difficulty);
         m_GameState = m_GameSessionManager.initGameSession();
 
         setSoundBackground();

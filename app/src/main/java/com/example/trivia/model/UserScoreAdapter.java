@@ -45,7 +45,7 @@ public class UserScoreAdapter extends BaseAdapter {
         UserScore userScore = m_UserScores.get(position);
 
         nameTv.setText(userScore.getUserName());
-        scoreTv.setText(userScore.getScore());
+        scoreTv.setText(userScore.getScore() + "");
 
         return convertView;
     }

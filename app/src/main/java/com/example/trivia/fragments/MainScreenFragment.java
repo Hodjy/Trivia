@@ -1,5 +1,7 @@
 package com.example.trivia.fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +19,13 @@ import com.example.trivia.enums.eMainActivityFragmentTags;
 
 public class MainScreenFragment extends Fragment
 {
+    private MainScreenFragmentListener m_Callback;
 
     public MainScreenFragment() {}
 
+    public interface MainScreenFragmentListener{
+        void onLeaderBoardClick();
+    }
 
     @Nullable
     @Override
@@ -30,6 +36,7 @@ public class MainScreenFragment extends Fragment
                 container, false);
 
         Button playBtn = root.findViewById(R.id.main_screen_choices_fragment_play_btn);
+        Button leaderBoardBtn = root.findViewById(R.id.main_activity_fragment_leaderboard_btn);
 
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +52,20 @@ public class MainScreenFragment extends Fragment
             }
         });
 
+        leaderBoardBtn.setOnClickListener(v -> m_Callback.onLeaderBoardClick());
+
         return root;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try{
+            m_Callback = (MainScreenFragmentListener)context;
+        }
+        catch (ClassCastException ex){
+            throw new ClassCastException("The activity must implement the MainScreenFragmentListener");
+        }
     }
 }

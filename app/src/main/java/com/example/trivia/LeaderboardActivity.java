@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.example.trivia.R;
 import com.example.trivia.model.UserScoreAdapter;
+import com.example.trivia.model.save.SaveManager;
 import com.example.trivia.model.save.UserScore;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         ArrayList<UserScore> usersScores = new ArrayList<>();
 
         //TODO extract users scores from file
-        //usersScores =
+        usersScores = SaveManager.LoadFromFile();
 
         UserScoreAdapter userScoreAdapter = new UserScoreAdapter(usersScores);
 
