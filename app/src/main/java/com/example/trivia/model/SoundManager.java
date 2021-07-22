@@ -6,6 +6,7 @@ import com.example.trivia.enums.eSoundsIdentifier;
 
 public class SoundManager {
 
+    private boolean m_PlayMusic = true;
     private MediaPlayer m_MediaPlayer;
     private static SoundManager m_Instance;
 
@@ -21,12 +22,15 @@ public class SoundManager {
     }
 
     public void playSound(Context context, eSoundsIdentifier soundIdentifier){
-        if(m_MediaPlayer != null)
+        if(m_PlayMusic)
         {
-            m_MediaPlayer.release();
+            if(m_MediaPlayer != null)
+            {
+                m_MediaPlayer.release();
+            }
+            m_MediaPlayer = MediaPlayer.create(context, soundIdentifier.id);
+            m_MediaPlayer.start();
         }
-        m_MediaPlayer = MediaPlayer.create(context, soundIdentifier.id);
-        m_MediaPlayer.start();
     }
 
     public void pauseSound(){
@@ -39,5 +43,13 @@ public class SoundManager {
         if(m_MediaPlayer != null){
             m_MediaPlayer.start();
         }
+    }
+
+    public boolean isPlayMusic() {
+        return m_PlayMusic;
+    }
+
+    public void setPlayMusic(boolean i_PlayMusic) {
+        m_PlayMusic = i_PlayMusic;
     }
 }

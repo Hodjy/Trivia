@@ -8,7 +8,8 @@ public enum eSoundsIdentifier {
     CORRECT_ANSWER_SOUND(R.raw.correct_answer_sound),
     INCORRECT_ANSWER_SOUND(R.raw.incorrect_answer_sound),
     SCORE_UP_SOUND(R.raw.score_up_sound),
-    END_GAME_SOUND(R.raw.end_game_sound);
+    END_GAME_SOUND(R.raw.end_game_sound),
+    MAIN_ACTIVITY_MUSIC(R.raw.main_activity_music);
 
     public final int id;
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class QuestionActivity extends AppCompatActivity
     private TextView m_LivesTv;
     private TextView m_ScoreTv;
     private TextView m_TimerCounterTv;
+    private Button  m_SoundBtn;
 
     //Non-View
     private Runnable m_ClockRunnable;
@@ -55,6 +57,16 @@ public class QuestionActivity extends AppCompatActivity
         m_GameSessionManager = new GameSessionManager(m_Difficulty); //questionDataBase.getAllQuestions(getApplicationContext()).get("hard")
         m_GameState = m_GameSessionManager.initGameSession();
 
+        setSoundBackground();
+        m_SoundBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SoundManager.getInstance().setPlayMusic(!SoundManager.getInstance().isPlayMusic());
+
+                setSoundBackground();
+            }
+        });
+
         continueGame();
     }
 
@@ -77,6 +89,7 @@ public class QuestionActivity extends AppCompatActivity
         m_LivesTv = findViewById(R.id.questionActivity_livesTV);
         m_ScoreTv = findViewById(R.id.questionActivity_scoreTV);
         m_TimerCounterTv = findViewById(R.id.level_counter_time_view);
+        m_SoundBtn = findViewById(R.id.question_activity_sound_btn);
     }
 
     private void setAnswerButtonsListener()
@@ -331,5 +344,13 @@ public class QuestionActivity extends AppCompatActivity
     private void setTimerView(int i_Seconds)
     {
         m_TimerCounterTv.setText(i_Seconds + "");
+    }
+
+    private void setSoundBackground()
+    {
+        if(SoundManager.getInstance().isPlayMusic())
+            m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
+        else
+            m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
     }
 }

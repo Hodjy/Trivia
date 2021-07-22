@@ -12,15 +12,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.trivia.enums.eMainActivityFragmentTags;
+import com.example.trivia.enums.eSoundsIdentifier;
 import com.example.trivia.fragments.DifficultyFragment;
 import com.example.trivia.fragments.MainScreenFragment;
+import com.example.trivia.model.SoundManager;
 import com.example.trivia.model.difficulty.ADifficulty;
 
 public class MainActivity extends AppCompatActivity implements DifficultyFragment.OnDifficultyClickFragmentListener
 {
     private AlertDialog.Builder m_DialogBuilder;
     private AlertDialog m_Dialog;
-    private Button mBtn1;
+    private Button m_soundBtn;
     private int flipflop = 0;
     private FragmentManager m_fragmentManager;
 
@@ -40,6 +42,25 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
 
             }
         });
+
+        m_soundBtn = findViewById(R.id.main_activity_sound_btn);
+        m_soundBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(SoundManager.getInstance().isPlayMusic())
+                {
+                    pauseSound();
+                    m_soundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
+                }
+                else
+                {
+                    resumeSound();
+                    m_soundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
+                }
+            }
+        });
+
+        SoundManager.getInstance().playSound(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
     }
 
     private void disableTextViewAndShowMainFragment(TextView i_TextView) {
@@ -118,5 +139,35 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
         });
 
     }*/
+
+    private void pauseSound(){
+        SoundManager.getInstance().pauseSound();
+        SoundManager.getInstance().setPlayMusic(false);
+    }
+
+    private void resumeSound(){
+        SoundManager.getInstance().resumeSound();
+        SoundManager.getInstance().setPlayMusic(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SoundManager.getInstance().pauseSound();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(SoundManager.getInstance().isPlayMusic())
+        {
+            SoundManager.getInstance().playSound(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
+            m_soundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
+        }
+        else
+        {
+            m_soundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
+        }
+    }
 
 }
