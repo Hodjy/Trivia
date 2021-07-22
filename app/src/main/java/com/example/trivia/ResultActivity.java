@@ -3,12 +3,16 @@ package com.example.trivia;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.trivia.model.difficulty.ADifficulty;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -28,15 +32,24 @@ public class ResultActivity extends AppCompatActivity {
 
         initViewID();
         setPlayerScore();
-        setHighestScore();
+
 
         m_SaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO save on file and make strings not HARD-CODED
 
-                m_SaveBtn.setText("Saved");
-                m_SaveBtn.setEnabled(false);
+                if(m_EnterNameEd.getText().toString().equals(""))
+                {
+                    Toast.makeText(ResultActivity.this, getResources().getString(R.string.result_activity_please_enter_name),
+                            Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    //TODO save on file and make strings not HARD-CODED
+
+                    m_SaveBtn.setText(getResources().getString(R.string.result_activity_saved));
+                    m_SaveBtn.setEnabled(false);
+                }
             }
         });
 
@@ -50,16 +63,21 @@ public class ResultActivity extends AppCompatActivity {
         m_LeaderBoardIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO open score board intent
+
+                Intent intent = new Intent(ResultActivity.this, LeaderboardActivity.class);
+                startActivity(intent);
             }
         });
 
         m_PlayAgainIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(ResultActivity.this, QuestionActivity.class);
 
-                //TODO PUT EXTRA DIFFICULTY
+                Bundle bundle = getIntent().getExtras();
+                ADifficulty difficulty = (ADifficulty)bundle.getSerializable("Difficulty");
+                intent.putExtra("Difficulty", difficulty);
 
                 startActivity(intent);
                 finish();
@@ -72,7 +90,6 @@ public class ResultActivity extends AppCompatActivity {
 
         m_ResultTv = findViewById(R.id.result_activity_resultTv);
         m_YourScoreTv = findViewById(R.id.result_activity_playerScoreTv);
-        m_HighestScoreTv = findViewById(R.id.result_activity_highestScoreTv);
         m_EnterNameEd = findViewById(R.id.result_activity_enterNameEd);
         m_SaveBtn = findViewById(R.id.result_activity_saveBtn);
         m_HomeIB = findViewById(R.id.result_activity_homeIB);
@@ -81,14 +98,8 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void setPlayerScore(){
-        //TODO shared preference extract score
 
-        //m_YourScoreTv.setText(m_YourScoreTv.getText().toString() + " " +  );
-    }
-
-    private void setHighestScore(){
-        // TODO extract from file highest score
-
-        //m_HighestScoreTv.setText(m_HighestScoreTv.getText().toString() + " " +  );
+        SharedPreferences sp = getSharedPreferences("match details", MODE_PRIVATE);
+        m_YourScoreTv.setText(m_YourScoreTv.getText().toString() + " " + sp.getString("score","") );
     }
 }

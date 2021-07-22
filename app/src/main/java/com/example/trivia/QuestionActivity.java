@@ -3,6 +3,7 @@ package com.example.trivia;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,6 +38,7 @@ public class QuestionActivity extends AppCompatActivity
     private final int m_ReactionDelaySecs = 2;
     private GameSessionManager m_GameSessionManager;
     private GameState m_GameState;
+    private ADifficulty m_Difficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,9 +50,9 @@ public class QuestionActivity extends AppCompatActivity
         setClockRunnable();
         setAnswerButtonsListener();
         Bundle bundle = getIntent().getExtras();
-        ADifficulty difficulty = (ADifficulty)bundle.getSerializable("Difficulty");
+        m_Difficulty = (ADifficulty)bundle.getSerializable("Difficulty");
         //TODO remove this and get Questions externally (either intent or something else)
-        m_GameSessionManager = new GameSessionManager(difficulty); //questionDataBase.getAllQuestions(getApplicationContext()).get("hard")
+        m_GameSessionManager = new GameSessionManager(m_Difficulty); //questionDataBase.getAllQuestions(getApplicationContext()).get("hard")
         m_GameState = m_GameSessionManager.initGameSession();
 
         continueGame();
@@ -211,9 +213,17 @@ public class QuestionActivity extends AppCompatActivity
         //m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_backgraund, this.getApplication().getTheme()));
         Toast.makeText(this, "Game Ended", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+        intent.putExtra("Difficulty", m_Difficulty);
+
+        SharedPreferences sp = getSharedPreferences("match details", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("score", m_ScoreTv.getText().toString());
+        editor.commit();
+
         AppDelayer.ClearAllRunnables();
-        finish();
+
         startActivity(intent);
+        finish();
     }
 
     private void continueGame()

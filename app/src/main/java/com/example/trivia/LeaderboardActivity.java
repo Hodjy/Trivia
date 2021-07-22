@@ -1,4 +1,4 @@
-package com.example.trivia.model;
+package com.example.trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,11 +8,12 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.trivia.R;
+import com.example.trivia.model.UserScoreAdapter;
 import com.example.trivia.model.save.UserScore;
 
 import java.util.ArrayList;
 
-public class Leaderboard extends AppCompatActivity {
+public class LeaderboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

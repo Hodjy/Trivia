@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/layout_id"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@drawable/background">
 
     <TextView
         android:layout_width="match_parent"
@@ -22,44 +23,51 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
+
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Your Score:"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:text="@string/result_activity_your_score"
             android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="#fff"
-            android:layout_marginTop="30dp"
             android:gravity="center"
             android:id="@+id/result_activity_playerScoreTv"/>
 
-        <TextView
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Highest score:"
-            android:textSize="20sp"
-            android:textColor="#fff"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:id="@+id/result_activity_highestScoreTv"/>
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Your Name Here"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:hint="@string/result_activity_enter_name"
             android:gravity="center"
             android:textColorHint="#DCD6D6"
             android:id="@+id/result_activity_enterNameEd"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@string/result_activity_save"
             android:textAllCaps="false"
             android:background="@drawable/result_activity_buttons_selector"
             android:layout_gravity="center"
             android:textColor="@color/white"
             android:id="@+id/result_activity_saveBtn"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
 
     </LinearLayout>
 

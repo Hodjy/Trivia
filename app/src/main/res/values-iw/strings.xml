@@ -41,4 +41,9 @@
     <string name="main_activity_leaderboard">לוח תוצאות</string>
     <string name="leaderboard_activity_title">לוח תוצאות</string>
     <string name="leaderboard_activity_back">חזור</string>
+    <string name="result_activity_please_enter_name">הכנס בבקשה את שמך כדי לשמור</string>
+    <string name="result_activity_your_score">הניקוד שלך:</string>
+    <string name="result_activity_enter_name">הכנס כאן את שמך</string>
+    <string name="result_activity_save">שמור</string>
+    <string name="result_activity_saved">נשמר</string>
 </resources>

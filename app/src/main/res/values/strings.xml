@@ -40,4 +40,9 @@
     <string name="main_activity_play">Play</string>
     <string name="main_activity_leaderboard">Leaderboard</string>
     <string name="leaderboard_activity_back">Back</string>
+    <string name="result_activity_please_enter_name">Please enter your name to save</string>
+    <string name="result_activity_your_score">Your Score:</string>
+    <string name="result_activity_enter_name">Enter your name here</string>
+    <string name="result_activity_save">Save</string>
+    <string name="result_activity_saved">Saved</string>
 </resources>
