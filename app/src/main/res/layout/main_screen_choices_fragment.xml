@@ -63,41 +63,9 @@
         android:layout_gravity="center"
         android:id="@+id/main_activity_encyclopedia_btn"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:text="how to play"
-        android:textStyle="bold"
-        android:textAllCaps="false"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:id="@+id/main_activity_how_to_play_btn"/>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:text="sound icon"
-        android:textStyle="bold"
-        android:textAllCaps="false"
-        android:gravity="center"
-        android:layout_gravity="center"
-/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"/>
-
 </LinearLayout>
