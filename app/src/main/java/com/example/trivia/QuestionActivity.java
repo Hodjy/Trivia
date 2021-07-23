@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ public class QuestionActivity extends AppCompatActivity
     private TextView m_LivesTv;
     private TextView m_ScoreTv;
     private TextView m_TimerCounterTv;
+    private ProgressBar m_ProgressBar;
     private Button  m_SoundBtn;
 
     //Non-View
@@ -55,7 +58,7 @@ public class QuestionActivity extends AppCompatActivity
         m_Difficulty = (ADifficulty)bundle.getSerializable("Difficulty");
         m_GameSessionManager = new GameSessionManager(m_Difficulty);
         m_GameState = m_GameSessionManager.initGameSession();
-
+        m_ProgressBar.setMax(m_GameSessionManager.getTimeForQuestion());
         setSoundBackground();
         m_SoundBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +90,8 @@ public class QuestionActivity extends AppCompatActivity
         m_AnswerBtns.add(findViewById(R.id.questionActivity_btn4));
         m_LivesTv = findViewById(R.id.questionActivity_livesTV);
         m_ScoreTv = findViewById(R.id.questionActivity_scoreTV);
-        m_TimerCounterTv = findViewById(R.id.level_counter_time_view);
+        m_TimerCounterTv = findViewById(R.id.question_activity_timerTv);
+        m_ProgressBar = findViewById(R.id.question_activity_progress_bar);
         m_SoundBtn = findViewById(R.id.question_activity_sound_btn);
     }
 
@@ -258,7 +262,7 @@ public class QuestionActivity extends AppCompatActivity
             public void run()
             {
                 m_SecondsLeft--;
-                setTimerView(m_SecondsLeft);
+                setTimeLeftUI(m_SecondsLeft);
 
                 if (m_SecondsLeft <= 5 && m_SecondsLeft > 0)
                 {
@@ -283,10 +287,6 @@ public class QuestionActivity extends AppCompatActivity
         };
     }
 
-    private void startClockRunnable()
-    {
-        AppDelayer.Post(m_ClockRunnable);
-    }
 //    private void TimeTikcingEffect()
 //    {
 //        new CountDownTimer(5000, 500) {
@@ -311,7 +311,7 @@ public class QuestionActivity extends AppCompatActivity
     public void resetAndStartQuestionTimer()
     {
         m_SecondsLeft = m_GameSessionManager.getTimeForQuestion();
-        setTimerView(m_SecondsLeft);
+        setTimeLeftUI(m_SecondsLeft);
         resumeClockRunnable();
     }
 
@@ -340,9 +340,10 @@ public class QuestionActivity extends AppCompatActivity
         AppDelayer.DelayApp(m_ReactionDelaySecs, runnable);
     }
 
-    private void setTimerView(int i_Seconds)
+    private void setTimeLeftUI(int i_Seconds)
     {
         m_TimerCounterTv.setText(i_Seconds + "");
+        m_ProgressBar.setProgress(i_Seconds);
     }
 
     private void setSoundBackground()

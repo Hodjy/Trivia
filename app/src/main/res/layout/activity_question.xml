@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:weightSum="100"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,27 +88,40 @@
 
     </LinearLayout>
 
-    <Space
-        android:layout_weight="5"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_width="match_parent"/>
+        android:layout_weight="8"
+        android:layout_gravity="center">
 
-    <TextView
-        android:layout_width="30dp"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:textAllCaps="true"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:id="@+id/level_counter_time_view"
-        />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateOnly="false"
+            android:progressDrawable="@drawable/progress_circle"
+            android:progress="10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/question_activity_progress_bar"
+            />
 
-    <Space
-        android:layout_weight="10"
-        android:layout_height="0dp"
-        android:layout_width="match_parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@id/question_activity_progress_bar"
+            app:layout_constraintBottom_toBottomOf="@id/question_activity_progress_bar"
+            app:layout_constraintStart_toStartOf="@id/question_activity_progress_bar"
+            app:layout_constraintEnd_toEndOf="@id/question_activity_progress_bar"
+            android:id="@+id/question_activity_timerTv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
