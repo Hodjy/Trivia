@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.trivia.enums.eSoundsIdentifier;
 import com.example.trivia.model.Answer;
-import com.example.trivia.model.AppDelayer;
+import com.example.trivia.model.AppHandler;
 import com.example.trivia.model.GameSessionManager;
 import com.example.trivia.model.GameState;
 import com.example.trivia.model.Question;
@@ -30,11 +30,11 @@ public class QuestionActivity extends AppCompatActivity
     //View
     private ImageView m_QuestionIV;
     private ArrayList<AnswerButton> m_AnswerBtns;
-    private TextView m_LivesTv;
     private TextView m_ScoreTv;
     private TextView m_TimerCounterTv;
     private ProgressBar m_ProgressBar;
-    private Button  m_SoundBtn;
+    private Button m_SoundBtn;
+    private ArrayList<ImageView> m_LivesIV;
 
     //Non-View
     private Runnable m_ClockRunnable;
@@ -50,15 +50,18 @@ public class QuestionActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
 
-        initViewID();
-        setClockRunnable();
-        setAnswerButtonsListener();
         Bundle bundle = getIntent().getExtras();
         m_Difficulty = (ADifficulty)bundle.getSerializable("Difficulty");
         m_GameSessionManager = new GameSessionManager(m_Difficulty);
+
+        initViewID();
+        setClockRunnable();
+        setAnswerButtonsListener();
+
         m_GameState = m_GameSessionManager.initGameSession();
         m_ProgressBar.setMax(m_GameSessionManager.getTimeForQuestion());
         setSoundBackground();
+
         m_SoundBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +82,7 @@ public class QuestionActivity extends AppCompatActivity
 
     @Override
     protected void onPause() {
-        AppDelayer.ClearAllRunnables();
+        AppHandler.ClearAllRunnables();
         SoundManager.getInstance().pauseBackgroundSound();
         finish();
         super.onPause();
@@ -88,13 +91,15 @@ public class QuestionActivity extends AppCompatActivity
     private void initViewID()
     {
         m_AnswerBtns = new ArrayList<>();
-
+        m_LivesIV = new ArrayList<>();
         m_QuestionIV = findViewById(R.id.questionActivity_questionIV);
         m_AnswerBtns.add(findViewById(R.id.questionActivity_btn1));
         m_AnswerBtns.add(findViewById(R.id.questionActivity_btn2));
         m_AnswerBtns.add(findViewById(R.id.questionActivity_btn3));
         m_AnswerBtns.add(findViewById(R.id.questionActivity_btn4));
-        m_LivesTv = findViewById(R.id.questionActivity_livesTV);
+        m_LivesIV.add(findViewById(R.id.question_activity_heartIv1));
+        m_LivesIV.add(findViewById(R.id.question_activity_heartIv2));
+        m_LivesIV.add(findViewById(R.id.question_activity_heartIv3));
         m_ScoreTv = findViewById(R.id.questionActivity_scoreTV);
         m_TimerCounterTv = findViewById(R.id.question_activity_timerTv);
         m_ProgressBar = findViewById(R.id.question_activity_progress_bar);
@@ -161,9 +166,10 @@ public class QuestionActivity extends AppCompatActivity
         enableUserInput(false);
 
         revealButtonToUser(i_Btn);
+        removeHeart(i_Btn.getIsCorrect());
         pauseClockRunnable();
-        m_GameState = m_GameSessionManager.answerPressed(i_Btn.getIsCorrect(), m_SecondsLeft);
-        updateLivesAndScore();
+        m_GameState = m_GameSessionManager.answerPressed(i_Btn.getIsCorrect());
+        updateScore();
 
         Runnable runnable = new Runnable()
         {
@@ -174,7 +180,7 @@ public class QuestionActivity extends AppCompatActivity
             }
         };
 
-        AppDelayer.DelayApp(m_ReactionDelaySecs, runnable);
+        AppHandler.DelayApp(m_ReactionDelaySecs, runnable);
     }
 
     /**
@@ -222,9 +228,8 @@ public class QuestionActivity extends AppCompatActivity
         }
     }
 
-    private void updateLivesAndScore()
+    private void updateScore()
     {
-        m_LivesTv.setText(m_GameState.getCurrentLife() + "");
         m_ScoreTv.setText(m_GameState.getCurrentScore() + "");
     }
 
@@ -242,7 +247,7 @@ public class QuestionActivity extends AppCompatActivity
         editor.putString("score", m_ScoreTv.getText().toString());
         editor.commit();
 
-        AppDelayer.ClearAllRunnables();
+        AppHandler.ClearAllRunnables();
 
         startActivity(intent);
         finish();
@@ -251,7 +256,7 @@ public class QuestionActivity extends AppCompatActivity
     private void continueGame()
     {
         setNewQuestion(m_GameState.getCurrentQuestion());
-        updateLivesAndScore();
+        updateScore();
         resetAndStartQuestionTimer();
         enableUserInput(true);
     }
@@ -281,7 +286,7 @@ public class QuestionActivity extends AppCompatActivity
                 // If theres time left keep running, else stop.
                 if (m_SecondsLeft > 0)
                 {
-                    AppDelayer.DelayApp(ticksBySeconds, this);
+                    AppHandler.DelayApp(ticksBySeconds, this);
                 }
                 else
                 {
@@ -321,12 +326,27 @@ public class QuestionActivity extends AppCompatActivity
         resumeClockRunnable();
     }
 
+    /**
+     * If incorrect, will hide a imageview that represents the players health.
+     * assumes that list has proper size.
+     * @param i_IsCorrect
+     */
+    public void removeHeart(boolean i_IsCorrect)
+    {
+        int currentLife = m_GameState.getCurrentLife();
+
+        if(!i_IsCorrect && currentLife > 0)
+        {
+            m_LivesIV.get(currentLife - 1).setVisibility(View.INVISIBLE);
+        }
+    }
+
     public void pauseClockRunnable(){
-        AppDelayer.RemoveCallbacks(m_ClockRunnable);
+        AppHandler.RemoveCallbacks(m_ClockRunnable);
     }
 
     public void resumeClockRunnable(){
-        AppDelayer.Post(m_ClockRunnable);
+        AppHandler.Post(m_ClockRunnable);
     }
 
     private void timeUp()
@@ -334,7 +354,7 @@ public class QuestionActivity extends AppCompatActivity
         Toast.makeText(this, "Time Up!!!!!", Toast.LENGTH_SHORT).show();
         pauseClockRunnable();
         m_GameState = m_GameSessionManager.timeUp();
-        updateLivesAndScore();
+        updateScore();
 
         Runnable runnable = new Runnable() {
             @Override
@@ -343,7 +363,7 @@ public class QuestionActivity extends AppCompatActivity
             }
         };
 
-        AppDelayer.DelayApp(m_ReactionDelaySecs, runnable);
+        AppHandler.DelayApp(m_ReactionDelaySecs, runnable);
     }
 
     private void setTimeLeftUI(int i_Seconds)

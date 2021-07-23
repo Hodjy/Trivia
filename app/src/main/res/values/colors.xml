@@ -9,5 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bright_blue">#38B3E4</color>
     <color name="progress_bar">#0BF822</color>
-    <color name="progress_bar_stress">#F80B0B</color>
+    <color name="light_red">#F80B0B</color>
 </resources>

@@ -102,10 +102,6 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
         startActivity(intent);
     }
 
-    //TODO When pressing a button in-game, stop the timer in order to prevent bugs.
-    //TODO 1 Explicit intent ExtraData
-    //TODO SharedPreferences
-
 /*    private class MainScreenFragmentAdapter extends FragmentStateAdapter
     {
         private final int AMOUNT_OF_FRAGMENTS = 2;

@@ -4,55 +4,67 @@
     android:layout_width="match_parent"
     android:weightSum="100"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/background"
+    android:background="@drawable/background_scene"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:orientation="horizontal">
+        android:id="@+id/question_activity_info_barRL">
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:id="@+id/question_activity_hearts_containerRL">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_outline_heart_border_24"
+                android:id="@+id/question_activity_heartIv1"
+                android:layout_alignParentStart="true"
+                app:tint="@color/light_red"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_outline_heart_border_24"
+                android:id="@+id/question_activity_heartIv2"
+                android:layout_toEndOf="@id/question_activity_heartIv1"
+                app:tint="@color/light_red"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_outline_heart_border_24"
+                android:id="@+id/question_activity_heartIv3"
+                android:layout_toEndOf="@id/question_activity_heartIv2"
+                app:tint="@color/light_red"/>
+
+        </RelativeLayout>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="0"
-            android:textSize="20sp"
-            android:gravity="start"
-            android:textStyle="bold"
-            android:id="@+id/questionActivity_livesTV"
-            android:textColor="@color/white"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
             android:text="0"
             android:textSize="20sp"
             android:gravity="center"
             android:id="@+id/questionActivity_scoreTV"
             android:textColor="@color/white"/>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
             android:id="@+id/question_activity_sound_btn"
             android:background="@drawable/ic_outline_volume_up"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <Space
         android:layout_width="match_parent"

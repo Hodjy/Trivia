@@ -16,8 +16,6 @@ public class FoliageDatabase
 {
     private static Hashtable<String, ArrayList<Foliage>> m_Foliage = null;
 
-    //TODO remove and implement this https://stackoverflow.com/questions/2002288/static-way-to-get-context-in-android
-
     public static Hashtable<String, ArrayList<Foliage>> getFoliages()
     {
         Hashtable<String, ArrayList<Foliage>> foliages = new Hashtable<>();

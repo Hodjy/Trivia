@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class UserScore implements Serializable
 {
-    //TODO probably needs to store difficulty.
     private String m_UserName;
     private int m_Score;
 

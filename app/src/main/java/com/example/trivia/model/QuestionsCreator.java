@@ -42,7 +42,6 @@ public class QuestionsCreator {
         return questions;
     }
 
-    //TODO make its a properly sealed class (only access with a facade)
     private static void loadAllQuestions()
     {
         String easy = new DifficultyEasy().getDifficulty(),

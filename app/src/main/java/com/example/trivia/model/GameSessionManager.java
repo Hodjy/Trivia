@@ -1,6 +1,9 @@
 package com.example.trivia.model;
 
 import com.example.trivia.model.difficulty.ADifficulty;
+import com.example.trivia.model.difficulty.DifficultyEasy;
+import com.example.trivia.model.difficulty.DifficultyHard;
+import com.example.trivia.model.difficulty.DifficultyMedium;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,12 +17,33 @@ public class GameSessionManager
     private ArrayList<Question> m_Questions;
     private GameState m_GameState;
     private int m_CurrentQuestionCounter;
+    private int m_QuestionScoreWeight;
     private ADifficulty m_Difficulty;
 
     public GameSessionManager(ADifficulty i_Difficulty)
     {
         m_Difficulty = i_Difficulty;
+        calculateScoreWeight();
         loadAndShuffleQuestions();
+    }
+
+    private void calculateScoreWeight() {
+        int score = 0;
+        m_QuestionScoreWeight = 1;
+        ArrayList<ADifficulty> difficulties = new ArrayList<>();
+        difficulties.add(new DifficultyEasy());
+        difficulties.add(new DifficultyMedium());
+        difficulties.add(new DifficultyHard());
+
+        for (ADifficulty difficulty : difficulties)
+        {
+            score +=100;
+            if(m_Difficulty.getDifficulty().equals(difficulty.getDifficulty()))
+            {
+                m_QuestionScoreWeight = score;
+                break;
+            }
+        }
     }
 
     public GameState initGameSession()
@@ -41,7 +65,7 @@ public class GameSessionManager
     }
 
 
-    public GameState answerPressed(Boolean isCorrectAnswer, int i_TimeLeftForAnswer)
+    public GameState answerPressed(Boolean isCorrectAnswer)
     {
         if(m_GameState.get_IsGameRunning())
         {
@@ -50,7 +74,7 @@ public class GameSessionManager
                 //play Correct animation and sound
                 //lock timer and UI
                 //delay
-                calculateScore(i_TimeLeftForAnswer);
+                calculateScore();
                 nextQuestion();
             }
             else
@@ -79,9 +103,9 @@ public class GameSessionManager
         }
     }
 
-    private void calculateScore(int i_TimeLeftForAnswer)
+    private void calculateScore()
     {
-        m_GameState.setCurrentScore(m_GameState.getCurrentScore() + 1);
+        m_GameState.setCurrentScore(m_GameState.getCurrentScore() + m_QuestionScoreWeight);
     }
 
     private void loseLifeAndProceed()

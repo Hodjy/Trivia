@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
-//TODO probabaly needs to get a UserScoreAdapter in order to save a list of UserScores.
+
 public class SaveManager
 {
     private static final String FILE_NAME = "SavedScores";

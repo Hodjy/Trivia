@@ -10,11 +10,11 @@ import java.util.Stack;
 /**
  * This class will be used as the hanlder with the singleton design pattern.
  */
-public class AppDelayer //TODO rename
+public class AppHandler
 {
     static final Handler m_Handler = new Handler(Looper.getMainLooper());
 
-    private AppDelayer()
+    private AppHandler()
     {
 
     }
