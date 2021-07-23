@@ -41,12 +41,12 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="3"
+        android:textStyle="bold"
         android:text="@string/leaderboard_activity_back"
         android:textAllCaps="false"
         android:background="@drawable/result_activity_buttons_selector"
         android:layout_gravity="center"
-        android:textColor="@color/white"
         android:id="@+id/encyclopedia_activity_backBtn"/>
 
     <Space

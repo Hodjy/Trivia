@@ -4,7 +4,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_alignParentBottom="true"
     android:layout_centerInParent="true">
 
     <Space
@@ -17,6 +16,7 @@
         android:layout_height="0dp"
         android:layout_weight="5"
         android:layout_margin="5dp"
+        android:textStyle="bold"
         android:text="@string/difficulty_easy"
         android:background="@drawable/result_activity_buttons_selector"
         android:id="@+id/difficulty_popup_easy_btn"/>
@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
+        android:textStyle="bold"
         android:text="@string/difficulty_medium"
         android:layout_margin="5dp"
         android:background="@drawable/result_activity_buttons_selector"
@@ -44,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
+        android:textStyle="bold"
         android:text="@string/difficulty_hard"
         android:layout_margin="5dp"
         android:background="@drawable/result_activity_buttons_selector"
@@ -58,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
+        android:textStyle="bold"
         android:text="@string/back"
         android:layout_margin="5dp"
         android:background="@drawable/result_activity_buttons_selector"

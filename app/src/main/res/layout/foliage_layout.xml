@@ -6,7 +6,8 @@
     app:cardUseCompatPadding="true"
     app:contentPadding="10dp"
     android:elevation="8dp"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="#0B3561">
 
     <ImageView
         android:layout_width="100dp"

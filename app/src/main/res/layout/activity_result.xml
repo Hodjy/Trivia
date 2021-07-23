@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="@drawable/background">
+    android:background="@drawable/background_scene_leaves">
 
     <Space
         android:layout_width="0dp"
@@ -76,6 +76,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="@string/result_activity_save"
                 android:textAllCaps="false"
                 android:background="@drawable/result_activity_buttons_selector"

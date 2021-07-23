@@ -2,9 +2,7 @@
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_weight="8"
     android:orientation="vertical"
-    android:layout_alignParentBottom="true"
     android:layout_centerInParent="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_activity_sound_btn">
@@ -12,12 +10,13 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"/>
+        android:layout_weight="1"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="5"
+        android:layout_margin="5dp"
         android:text="@string/main_activity_play"
         android:textStyle="bold"
         android:textAllCaps="false"
@@ -30,12 +29,13 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_weight="1"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="5"
+        android:layout_margin="5dp"
         android:text="@string/main_activity_leaderboard"
         android:textStyle="bold"
         android:textAllCaps="false"
@@ -47,12 +47,13 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_weight="1"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="5"
+        android:layout_margin="5dp"
         android:text="@string/encyclopedia"
         android:textStyle="bold"
         android:textAllCaps="false"
@@ -65,5 +66,5 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_weight="1"/>
 </LinearLayout>
