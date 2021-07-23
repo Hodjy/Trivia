@@ -25,6 +25,12 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
     private FragmentManager m_fragmentManager;
 
     @Override
+    public void onEncyclopediaClick(){
+        Intent intent = new Intent(MainActivity.this, EncyclopediaActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void onLeaderBoardClick() {
         Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
         startActivity(intent);

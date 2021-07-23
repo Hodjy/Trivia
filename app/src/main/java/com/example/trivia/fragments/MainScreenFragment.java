@@ -25,6 +25,7 @@ public class MainScreenFragment extends Fragment
 
     public interface MainScreenFragmentListener{
         void onLeaderBoardClick();
+        void onEncyclopediaClick();
     }
 
     @Nullable
@@ -37,6 +38,7 @@ public class MainScreenFragment extends Fragment
 
         Button playBtn = root.findViewById(R.id.main_screen_choices_fragment_play_btn);
         Button leaderBoardBtn = root.findViewById(R.id.main_activity_fragment_leaderboard_btn);
+        Button encyclopediaBtn = root.findViewById(R.id.main_activity_encyclopedia_btn);
 
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,8 @@ public class MainScreenFragment extends Fragment
         });
 
         leaderBoardBtn.setOnClickListener(v -> m_Callback.onLeaderBoardClick());
+
+        encyclopediaBtn.setOnClickListener(v -> m_Callback.onEncyclopediaClick());
 
         return root;
     }

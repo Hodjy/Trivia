@@ -3,13 +3,14 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
     app:contentPadding="10dp"
     android:elevation="8dp"
     app:cardCornerRadius="10dp">
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="start"
         android:layout_margin="10dp"
         android:id="@+id/foliage_layout_foliageIv"
@@ -19,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:textStyle="bold"
         android:textSize="20sp"
         android:id="@+id/foliage_layout_informationTv"/>
 

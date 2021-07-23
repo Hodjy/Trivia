@@ -1,6 +1,7 @@
 package com.example.trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -37,7 +38,9 @@ public class EncyclopediaActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView foliageList = findViewById(R.id.encyclopedia_activity_foliageList);
+        RecyclerView foliageRecyclerView = findViewById(R.id.encyclopedia_activity_foliageList);
+        foliageRecyclerView.setHasFixedSize(true);
+        foliageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<Foliage> foliages = new ArrayList<>();
 
@@ -48,6 +51,6 @@ public class EncyclopediaActivity extends AppCompatActivity {
         foliages.addAll(foliagesHash.get((new DifficultyHard().getDifficulty())));
 
         FoliageAdapter foliageAdapter = new FoliageAdapter(foliages);
-        foliageList.setAdapter(foliageAdapter);
+        foliageRecyclerView.setAdapter(foliageAdapter);
     }
 }
