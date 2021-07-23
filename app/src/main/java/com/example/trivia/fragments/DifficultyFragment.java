@@ -11,7 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.trivia.ApplicationContext;
+import com.example.trivia.MainActivity;
 import com.example.trivia.R;
+import com.example.trivia.enums.eSoundsIdentifier;
+import com.example.trivia.model.SoundManager;
 import com.example.trivia.model.difficulty.DifficultyEasy;
 import com.example.trivia.model.difficulty.DifficultyHard;
 import com.example.trivia.model.difficulty.DifficultyMedium;
@@ -58,7 +62,10 @@ public class DifficultyFragment extends Fragment
         easyBtn.setOnClickListener(v -> m_Callback.onDifficultyClick(new DifficultyEasy()));
         mediumBtn.setOnClickListener(v -> m_Callback.onDifficultyClick(new DifficultyMedium()));
         hardBtn.setOnClickListener(v -> m_Callback.onDifficultyClick(new DifficultyHard()));
-        backBtn.setOnClickListener(v -> getParentFragmentManager().popBackStack());
+        backBtn.setOnClickListener(v -> {
+            SoundManager.getInstance().playMainSound(ApplicationContext.getContext(), eSoundsIdentifier.BTN_CLICK_SOUND);
+            getParentFragmentManager().popBackStack();
+        });
         return root;
     }
 }

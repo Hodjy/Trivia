@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.trivia.enums.eSoundsIdentifier;
 import com.example.trivia.model.Foliage;
 import com.example.trivia.model.FoliageAdapter;
 import com.example.trivia.model.FoliageDatabase;
+import com.example.trivia.model.SoundManager;
 import com.example.trivia.model.UserScoreAdapter;
 import com.example.trivia.model.difficulty.DifficultyEasy;
 import com.example.trivia.model.difficulty.DifficultyHard;
@@ -34,6 +36,7 @@ public class EncyclopediaActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SoundManager.getInstance().playMainSound(EncyclopediaActivity.this, eSoundsIdentifier.BTN_CLICK_SOUND);
                 finish();
             }
         });

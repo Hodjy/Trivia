@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.trivia.R;
+import com.example.trivia.enums.eSoundsIdentifier;
+import com.example.trivia.model.SoundManager;
 import com.example.trivia.model.UserScoreAdapter;
 import com.example.trivia.model.save.SaveManager;
 import com.example.trivia.model.save.UserScore;
@@ -26,6 +28,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SoundManager.getInstance().playMainSound(LeaderboardActivity.this, eSoundsIdentifier.BTN_CLICK_SOUND);
                 finish();
             }
         });

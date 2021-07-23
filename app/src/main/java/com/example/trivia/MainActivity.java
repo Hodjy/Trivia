@@ -20,18 +20,21 @@ import com.example.trivia.model.difficulty.ADifficulty;
 
 public class MainActivity extends AppCompatActivity implements DifficultyFragment.OnDifficultyClickFragmentListener, MainScreenFragment.MainScreenFragmentListener
 {
-    private Button m_soundBtn;
+    private Button m_SoundBtn;
     private int flipflop = 0;
     private FragmentManager m_fragmentManager;
 
+
     @Override
     public void onEncyclopediaClick(){
+        SoundManager.getInstance().playMainSound(MainActivity.this, eSoundsIdentifier.BTN_CLICK_SOUND);
         Intent intent = new Intent(MainActivity.this, EncyclopediaActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void onLeaderBoardClick() {
+        SoundManager.getInstance().playMainSound(MainActivity.this, eSoundsIdentifier.BTN_CLICK_SOUND);
         Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
         startActivity(intent);
     }
@@ -43,13 +46,14 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
         setContentView(R.layout.activity_main);
 
         TextView tapHereTV = findViewById(R.id.main_activity_tap_hereTV);
-        m_soundBtn = findViewById(R.id.main_activity_sound_btn);
+        m_SoundBtn = findViewById(R.id.main_activity_sound_btn);
         Button helpBtn = findViewById(R.id.main_activity_how_to_play_btn);
         m_fragmentManager = getSupportFragmentManager();
 
         helpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SoundManager.getInstance().playMainSound(MainActivity.this, eSoundsIdentifier.BTN_CLICK_SOUND);
                 HelpDialogFragment helpDialogFragment = new HelpDialogFragment();
                 helpDialogFragment.show(m_fragmentManager, eMainActivityFragmentTags.HELP_DIALOG_FRAGMENT.toString());
             }
@@ -57,23 +61,23 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
 
        tapHereTV.setOnClickListener(v -> disableTextViewAndShowMainFragment((TextView) v));
 
-        m_soundBtn.setOnClickListener(new View.OnClickListener() {
+        m_SoundBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(SoundManager.getInstance().isPlayMusic())
                 {
-                    pauseSound();
-                    m_soundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
+                    SoundManager.getInstance().pauseBackgroundSound();
+                    m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
                 }
                 else
                 {
-                    resumeSound();
-                    m_soundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
+                    SoundManager.getInstance().resumeBackgroundSound();
+                    m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
                 }
+
+                SoundManager.getInstance().setPlayMusic(!SoundManager.getInstance().isPlayMusic());
             }
         });
-
-        SoundManager.getInstance().playSound(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
     }
 
     private void disableTextViewAndShowMainFragment(TextView i_TextView) {
@@ -86,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
     @Override
     public void onDifficultyClick(ADifficulty i_Difficulty)
     {
+        SoundManager.getInstance().playMainSound(MainActivity.this, eSoundsIdentifier.BTN_CLICK_SOUND);
         getSupportFragmentManager().popBackStack();
         startGame(i_Difficulty);
     }
@@ -153,20 +158,10 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
 
     }*/
 
-    private void pauseSound(){
-        SoundManager.getInstance().pauseSound();
-        SoundManager.getInstance().setPlayMusic(false);
-    }
-
-    private void resumeSound(){
-        SoundManager.getInstance().resumeSound();
-        SoundManager.getInstance().setPlayMusic(true);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
-        SoundManager.getInstance().pauseSound();
+        SoundManager.getInstance().pauseBackgroundSound();
     }
 
     @Override
@@ -174,15 +169,15 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
         super.onResume();
         if(SoundManager.getInstance().isPlayMusic())
         {
-            SoundManager.getInstance().playSound(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
-            m_soundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
+            SoundManager.getInstance().playBackgroundSound(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
+            m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
         }
         else
         {
             SoundManager.getInstance().setPlayMusic(true);
-            SoundManager.getInstance().playSound(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
-            SoundManager.getInstance().pauseSound();
-            m_soundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
+            SoundManager.getInstance().playBackgroundSound(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
+            SoundManager.getInstance().pauseBackgroundSound();
+            m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
         }
     }
 

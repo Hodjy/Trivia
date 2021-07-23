@@ -6,8 +6,9 @@ import com.example.trivia.enums.eSoundsIdentifier;
 
 public class SoundManager {
 
-    private boolean m_PlayMusic = true;
-    private MediaPlayer m_MediaPlayer;
+    private static boolean m_PlayMusic = true;
+    private MediaPlayer m_MainMediaPlayer;
+    private MediaPlayer m_BackgroundMediaPlayer;
     private static SoundManager m_Instance;
 
     private SoundManager(){}
@@ -21,27 +22,39 @@ public class SoundManager {
         return m_Instance;
     }
 
-    public void playSound(Context context, eSoundsIdentifier soundIdentifier){
+    public void playMainSound(Context context, eSoundsIdentifier soundIdentifier){
         if(m_PlayMusic)
         {
-            if(m_MediaPlayer != null)
+            if(m_MainMediaPlayer != null)
             {
-                m_MediaPlayer.release();
+                m_MainMediaPlayer.release();
             }
-            m_MediaPlayer = MediaPlayer.create(context, soundIdentifier.id);
-            m_MediaPlayer.start();
+            m_MainMediaPlayer = MediaPlayer.create(context, soundIdentifier.id);
+            m_MainMediaPlayer.start();
         }
     }
 
-    public void pauseSound(){
-        if(m_MediaPlayer != null){
-            m_MediaPlayer.pause();
+    public void playBackgroundSound(Context context, eSoundsIdentifier soundIdentifier){
+        if(m_PlayMusic)
+        {
+            if(m_BackgroundMediaPlayer != null)
+            {
+                m_BackgroundMediaPlayer.release();
+            }
+            m_BackgroundMediaPlayer = MediaPlayer.create(context, soundIdentifier.id);
+            m_BackgroundMediaPlayer.start();
         }
     }
 
-    public void resumeSound(){
-        if(m_MediaPlayer != null){
-            m_MediaPlayer.start();
+    public void pauseBackgroundSound(){
+        if(m_BackgroundMediaPlayer != null){
+            m_BackgroundMediaPlayer.pause();
+        }
+    }
+
+    public void resumeBackgroundSound(){
+        if(m_BackgroundMediaPlayer != null){
+            m_BackgroundMediaPlayer.start();
         }
     }
 

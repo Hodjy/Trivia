@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -65,16 +64,23 @@ public class QuestionActivity extends AppCompatActivity
             public void onClick(View v) {
                 SoundManager.getInstance().setPlayMusic(!SoundManager.getInstance().isPlayMusic());
 
+                if(SoundManager.getInstance().isPlayMusic())
+                    SoundManager.getInstance().resumeBackgroundSound();
+                else
+                    SoundManager.getInstance().pauseBackgroundSound();
                 setSoundBackground();
             }
         });
 
         continueGame();
+
+        SoundManager.getInstance().playBackgroundSound(QuestionActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
     }
 
     @Override
     protected void onPause() {
         AppDelayer.ClearAllRunnables();
+        SoundManager.getInstance().pauseBackgroundSound();
         finish();
         super.onPause();
     }
@@ -195,11 +201,11 @@ public class QuestionActivity extends AppCompatActivity
     private void playAnswerButtonSound(Boolean i_IsCorrect) {
         if(i_IsCorrect)
         {
-            SoundManager.getInstance().playSound(QuestionActivity.this, eSoundsIdentifier.CORRECT_ANSWER_SOUND);
+            SoundManager.getInstance().playMainSound(QuestionActivity.this, eSoundsIdentifier.CORRECT_ANSWER_SOUND);
         }
         else
         {
-            SoundManager.getInstance().playSound(QuestionActivity.this, eSoundsIdentifier.INCORRECT_ANSWER_SOUND);
+            SoundManager.getInstance().playMainSound(QuestionActivity.this, eSoundsIdentifier.INCORRECT_ANSWER_SOUND);
         }
     }
 
@@ -266,7 +272,7 @@ public class QuestionActivity extends AppCompatActivity
 
                 if (m_SecondsLeft <= 5 && m_SecondsLeft > 0)
                 {
-                    SoundManager.getInstance().playSound(QuestionActivity.this, eSoundsIdentifier.TIME_TICKING_SOUND);
+                    SoundManager.getInstance().playMainSound(QuestionActivity.this, eSoundsIdentifier.TIME_TICKING_SOUND);
                     //TODO ANIMATION / EFFECT
                     //if(m_SecondsLeft ==5)
                     // TimeTikcingEffect();

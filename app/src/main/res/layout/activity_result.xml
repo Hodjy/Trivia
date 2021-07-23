@@ -2,124 +2,153 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/layout_id"
-    android:gravity="center"
+    android:orientation="horizontal"
     android:background="@drawable/background">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Game Over"
-        android:textSize="45sp"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:id="@+id/result_activity_resultTv"/>
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="220dp"
-        android:background="@drawable/result_score_background"
+        android:layout_width="0dp"
+        android:layout_weight="8"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_height="match_parent">
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"/>
-        <LinearLayout
+            android:layout_weight="10"/>
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2">
+            android:layout_height="wrap_content"
+            android:text="Game Over"
+            android:textSize="45sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:id="@+id/result_activity_resultTv"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:text="@string/result_activity_your_score"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="#fff"
-                android:gravity="center"
-                android:id="@+id/result_activity_yourScoreTv"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="220dp"
+            android:background="@drawable/result_score_background"
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:text="@string/result_activity_your_score"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:gravity="center"
+                    android:id="@+id/result_activity_yourScoreTv"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:gravity="center"
+                    android:id="@+id/result_activity_playerScoreTv"/>
+
+
+            </LinearLayout>
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="2"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="#fff"
+                android:hint="@string/result_activity_enter_name"
+                android:textColor="@color/white"
                 android:gravity="center"
-                android:id="@+id/result_activity_playerScoreTv"/>
+                android:textColorHint="#DCD6D6"
+                android:id="@+id/result_activity_enterNameEd"/>
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/result_activity_save"
+                android:textAllCaps="false"
+                android:background="@drawable/result_activity_buttons_selector"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:id="@+id/result_activity_saveBtn"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"/>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/result_activity_homeIB"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="40dp"
+                android:src="@drawable/home_icon"
+                android:background="@drawable/result_activity_buttons_selector"/>
+
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="40dp"
+                android:src="@drawable/leaderboard_icon"
+                android:background="@drawable/result_activity_buttons_selector"
+                android:id="@+id/result_activity_leaderboardIB"/>
+
+            <ImageButton
+                android:id="@+id/result_activity_playAgainIB"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:textAllCaps="false"
+                android:src="@drawable/replay_icon"
+                android:background="@drawable/result_activity_buttons_selector"/>
+
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:hint="@string/result_activity_enter_name"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:textColorHint="#DCD6D6"
-            android:id="@+id/result_activity_enterNameEd"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="@string/result_activity_save"
-            android:textAllCaps="false"
-            android:background="@drawable/result_activity_buttons_selector"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:id="@+id/result_activity_saveBtn"/>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"/>
+            android:layout_weight="10"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:gravity="center">
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="35dp"
+        android:id="@+id/result_activity_sound_btn"
+        android:background="@drawable/ic_outline_volume_up"/>
 
-        <ImageButton
-            android:id="@+id/result_activity_homeIB"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="40dp"
-            android:src="@drawable/home_icon"
-            android:background="@drawable/result_activity_buttons_selector"/>
-
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="40dp"
-            android:src="@drawable/leaderboard_icon"
-            android:background="@drawable/result_activity_buttons_selector"
-            android:id="@+id/result_activity_leaderboardIB"/>
-
-        <ImageButton
-            android:id="@+id/result_activity_playAgainIB"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:textAllCaps="false"
-            android:src="@drawable/replay_icon"
-            android:background="@drawable/result_activity_buttons_selector"/>
-
-    </LinearLayout>
 </LinearLayout>

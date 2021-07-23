@@ -15,14 +15,14 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:id="@+id/main_activity_how_to_play_btn"
             android:background="@drawable/ic_outline_live_help_24"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:id="@+id/main_activity_sound_btn"
             android:background="@drawable/ic_outline_volume_up"/>
 
@@ -32,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:text="Title"
+        android:text="Trivia Game"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textAllCaps="false"
         android:gravity="center"
