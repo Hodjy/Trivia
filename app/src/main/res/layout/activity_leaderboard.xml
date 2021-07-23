@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/background">
+    android:background="@drawable/background_scene_forest_waterfall">
 
     <Space
         android:layout_width="match_parent"
@@ -29,27 +29,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="80">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
+        android:layout_weight="80"
+        >
         <ListView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:id="@+id/leaderboard_activity_userScoreList"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
+            android:id="@+id/leaderboard_activity_userScoreList"
+            android:background="@drawable/info_back_style"/>
     </LinearLayout>
-
-
 
     <Space
         android:layout_width="match_parent"
@@ -61,10 +48,10 @@
         android:layout_height="0dp"
         android:layout_weight="5"
         android:text="@string/leaderboard_activity_back"
+        android:textStyle="bold"
         android:textAllCaps="false"
         android:background="@drawable/result_activity_buttons_selector"
         android:layout_gravity="center"
-        android:textColor="@color/white"
         android:id="@+id/leaderboard_activity_backBtn"/>
 
     <Space

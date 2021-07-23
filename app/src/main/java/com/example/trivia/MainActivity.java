@@ -21,7 +21,6 @@ import com.example.trivia.model.difficulty.ADifficulty;
 public class MainActivity extends AppCompatActivity implements DifficultyFragment.OnDifficultyClickFragmentListener, MainScreenFragment.MainScreenFragmentListener
 {
     private Button m_SoundBtn;
-    private int flipflop = 0;
     private FragmentManager m_fragmentManager;
 
 
@@ -82,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
 
     private void disableTextViewAndShowMainFragment(TextView i_TextView) {
         i_TextView.setEnabled(false);
+        i_TextView.setVisibility(View.INVISIBLE);
         m_fragmentManager.beginTransaction().add(R.id.main_activity_fragment_container, new MainScreenFragment(),
                 eMainActivityFragmentTags.MAIN_SCREEN_FRAGMENT.toString())
                 .commit();

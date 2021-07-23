@@ -12,22 +12,18 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_weight="4"/>
 
-    <Space
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_weight="6"
         android:text="@string/main_activity_play"
         android:textStyle="bold"
         android:textAllCaps="false"
         android:gravity="center"
         android:layout_gravity="center"
+        android:background="@drawable/result_activity_buttons_selector"
         android:id="@+id/main_screen_choices_fragment_play_btn"/>
 
 
@@ -36,15 +32,16 @@
         android:layout_height="0dp"
         android:layout_weight="2"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_height="0dp"
+        android:layout_weight="6"
         android:text="@string/main_activity_leaderboard"
         android:textStyle="bold"
         android:textAllCaps="false"
         android:gravity="center"
         android:layout_gravity="center"
+        android:background="@drawable/result_activity_buttons_selector"
         android:id="@+id/main_activity_fragment_leaderboard_btn"/>
 
     <Space
@@ -52,15 +49,16 @@
         android:layout_height="0dp"
         android:layout_weight="2"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:text="Encyclopedia"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:text="@string/encyclopedia"
         android:textStyle="bold"
         android:textAllCaps="false"
         android:gravity="center"
         android:layout_gravity="center"
+        android:background="@drawable/result_activity_buttons_selector"
         android:id="@+id/main_activity_encyclopedia_btn"/>
 
 

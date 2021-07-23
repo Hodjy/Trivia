@@ -10,4 +10,7 @@
     <color name="bright_blue">#38B3E4</color>
     <color name="progress_bar">#0BF822</color>
     <color name="light_red">#F80B0B</color>
+    <color name="grey_blue">#65070E37</color>
+    <color name="black_blue">#022130</color>
+
 </resources>

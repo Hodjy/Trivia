@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_scene">
+    android:background="@drawable/background_scene_forest_road">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -57,6 +57,7 @@
             android:layout_height="match_parent"
             android:text="@string/main_activity_tap_here"
             android:textSize="40sp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:gravity="center"
             android:id="@+id/main_activity_tap_hereTV"/>
