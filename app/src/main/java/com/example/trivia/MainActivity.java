@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 ;
 import androidx.fragment.app.FragmentManager;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,14 +13,13 @@ import android.widget.TextView;
 import com.example.trivia.enums.eMainActivityFragmentTags;
 import com.example.trivia.enums.eSoundsIdentifier;
 import com.example.trivia.fragments.DifficultyFragment;
+import com.example.trivia.fragments.HelpDialogFragment;
 import com.example.trivia.fragments.MainScreenFragment;
 import com.example.trivia.model.SoundManager;
 import com.example.trivia.model.difficulty.ADifficulty;
 
 public class MainActivity extends AppCompatActivity implements DifficultyFragment.OnDifficultyClickFragmentListener, MainScreenFragment.MainScreenFragmentListener
 {
-    private AlertDialog.Builder m_DialogBuilder;
-    private AlertDialog m_Dialog;
     private Button m_soundBtn;
     private int flipflop = 0;
     private FragmentManager m_fragmentManager;
@@ -39,17 +37,20 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
         setContentView(R.layout.activity_main);
 
         TextView tapHereTV = findViewById(R.id.main_activity_tap_hereTV);
+        m_soundBtn = findViewById(R.id.main_activity_sound_btn);
+        Button helpBtn = findViewById(R.id.main_activity_how_to_play_btn);
         m_fragmentManager = getSupportFragmentManager();
 
-       tapHereTV.setOnClickListener(new View.OnClickListener() {
+        helpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                disableTextViewAndShowMainFragment((TextView) v);
-
+                HelpDialogFragment helpDialogFragment = new HelpDialogFragment();
+                helpDialogFragment.show(m_fragmentManager, eMainActivityFragmentTags.HELP_DIALOG_FRAGMENT.toString());
             }
         });
 
-        m_soundBtn = findViewById(R.id.main_activity_sound_btn);
+       tapHereTV.setOnClickListener(v -> disableTextViewAndShowMainFragment((TextView) v));
+
         m_soundBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
