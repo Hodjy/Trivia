@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 ;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
         });
     }
 
-    private void disableTextViewAndShowMainFragment(TextView i_TextView) {
+    private void disableTextViewAndShowMainFragment(TextView i_TextView)
+    {
         i_TextView.setEnabled(false);
         i_TextView.setVisibility(View.INVISIBLE);
         m_fragmentManager.beginTransaction().add(R.id.main_activity_fragment_container, new MainScreenFragment(),
@@ -102,64 +104,13 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
         startActivity(intent);
     }
 
-/*    private class MainScreenFragmentAdapter extends FragmentStateAdapter
-    {
-        private final int AMOUNT_OF_FRAGMENTS = 2;
-
-        public MainScreenFragmentAdapter(@NonNull  FragmentManager fragmentManager,
-                                         @NonNull  Lifecycle lifecycle)
-        {
-            super(fragmentManager, lifecycle);
-        }
-
-        @NonNull
-        @Override
-        public Fragment createFragment(int position) {
-            switch(position)
-            {
-                case 0:
-                    return new MainScreenFragment();
-                case 1:
-                    return new DifficultyFragment();
-                default:
-                    Toast.makeText(MainActivity.this, "Please send help", Toast.LENGTH_LONG).show();
-                    return null;
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return AMOUNT_OF_FRAGMENTS;
-        }
-    }*/
-
-/*    private void createDifficultyDialog()
-    {
-        m_DialogBuilder = new AlertDialog.Builder(this);
-        final View difficultyDialog = getLayoutInflater().inflate(R.layout.difficulty_popup, null);
-
-        mBtn1 = findViewById(R.id.difficulty_popup_easy_btn);
-
-        m_DialogBuilder.setView(difficultyDialog);
-        m_Dialog = m_DialogBuilder.create();
-        m_Dialog.show();
-
-        mBtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Easy peasy!", Toast.LENGTH_SHORT).show();
-                m_Dialog.dismiss();
-            }
-        });
-
-    }*/
-
     @Override
     protected void onPause() {
         super.onPause();
         SoundManager.getInstance().onActivityPause();
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onResume(){
         super.onResume();

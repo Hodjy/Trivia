@@ -33,7 +33,7 @@ public class QuestionsCreator {
         }
 
         questions = m_Questions.get(i_Difficulty);
-        //if not null, create a copy (done this way to avoid exeption).
+        //if not null, create a copy (done this way to avoid exception).
         if (questions != null)
         {
             questions = new ArrayList<Question>(questions);
