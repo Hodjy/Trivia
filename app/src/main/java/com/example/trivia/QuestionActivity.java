@@ -2,17 +2,25 @@ package com.example.trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Animatable2;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.trivia.enums.eSoundsIdentifier;
 import com.example.trivia.model.Answer;
 import com.example.trivia.model.AppHandler;
@@ -35,6 +43,7 @@ public class QuestionActivity extends AppCompatActivity
     private ProgressBar m_ProgressBar;
     private Button m_SoundBtn;
     private ArrayList<ImageView> m_LivesIV;
+    private RelativeLayout m_LivesContainerRL;
 
     //Non-View
     private Runnable m_ClockRunnable;
@@ -104,6 +113,7 @@ public class QuestionActivity extends AppCompatActivity
         m_TimerCounterTv = findViewById(R.id.question_activity_timerTv);
         m_ProgressBar = findViewById(R.id.question_activity_progress_bar);
         m_SoundBtn = findViewById(R.id.question_activity_sound_btn);
+        m_LivesContainerRL = findViewById(R.id.question_activity_hearts_containerRL);
     }
 
     private void setAnswerButtonsListener()
@@ -142,8 +152,8 @@ public class QuestionActivity extends AppCompatActivity
         Random rand = new Random();
         ArrayList<Answer> Answers = i_Question.getAnswers();
 
-        Glide.with(this).load(i_Question.getImgUri()).into(m_QuestionIV); //load pic
-
+        loadNewImageAndAnimate(this, i_Question.getImgUri());
+        //Glide.with(this).load(i_Question.getImgUri()).into(m_QuestionIV); //load pic
 
         for (AnswerButton btn : m_AnswerBtns)
         {
@@ -152,6 +162,7 @@ public class QuestionActivity extends AppCompatActivity
             btn.setAnswerButton(answer);
             Answers.remove(answer);
         }
+
     }
 
     /**
@@ -162,23 +173,15 @@ public class QuestionActivity extends AppCompatActivity
      */
     private void answerButtonPressed(AnswerButton i_Btn)
     {
-        playAnswerButtonSound(i_Btn.getIsCorrect());
         enableUserInput(false);
-
+        playAnswerButton(i_Btn);
         revealButtonToUser(i_Btn);
         removeHeart(i_Btn.getIsCorrect());
         pauseClockRunnable();
         m_GameState = m_GameSessionManager.answerPressed(i_Btn.getIsCorrect());
-        updateScore();
+        updateScore(i_Btn.getIsCorrect());
 
-        Runnable runnable = new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                checkGameStateAndProgress();
-            }
-        };
+        Runnable runnable = () -> checkGameStateAndProgress();
 
         AppHandler.DelayApp(m_ReactionDelaySecs, runnable);
     }
@@ -204,15 +207,53 @@ public class QuestionActivity extends AppCompatActivity
         i_Btn.showAnswerImage();
     }
 
-    private void playAnswerButtonSound(Boolean i_IsCorrect) {
-        if(i_IsCorrect)
+    /**
+     * Plays animation and sound accordingly to correct or incorrect.
+     * @param i_Btn Pressed button.
+     */
+    private void playAnswerButton(AnswerButton i_Btn)
+    {
+        if(i_Btn.getIsCorrect())
         {
             SoundManager.getInstance().playMainSound(QuestionActivity.this, eSoundsIdentifier.CORRECT_ANSWER_SOUND);
+            YoYo.with(Techniques.Pulse)
+                    .duration(200)
+                    .playOn(i_Btn);
         }
         else
         {
             SoundManager.getInstance().playMainSound(QuestionActivity.this, eSoundsIdentifier.INCORRECT_ANSWER_SOUND);
+            YoYo.with(Techniques.Shake)
+                    .duration(200)
+                    .playOn(i_Btn);
         }
+    }
+
+    private void loadNewImageAndAnimate( Context i_Context, Uri i_ImageUri)
+    {
+        long animationDuration = 200;
+        long animationDelay = 600;
+
+        YoYo.AnimatorCallback animatorCallback = new YoYo.AnimatorCallback() {
+            @Override
+            public void call(Animator animator) {
+                Glide.with(i_Context)
+                        .load(i_ImageUri)
+                        .dontAnimate()
+                        .skipMemoryCache(true)
+                        .into(m_QuestionIV); //load pic
+
+                YoYo.with(Techniques.FadeIn)
+                        .duration(1)
+                        .delay(animationDelay)
+                        .playOn(m_QuestionIV);
+            }
+        };
+
+        YoYo.with(Techniques.FadeOut)
+                .duration(animationDuration)
+                .onEnd(animatorCallback)
+                .playOn(m_QuestionIV);
     }
 
 
@@ -228,9 +269,15 @@ public class QuestionActivity extends AppCompatActivity
         }
     }
 
-    private void updateScore()
+    private void updateScore(boolean i_IsCorrect)
     {
-        m_ScoreTv.setText(m_GameState.getCurrentScore() + "");
+        if(i_IsCorrect)
+        {
+            m_ScoreTv.setText(m_GameState.getCurrentScore() + "");
+            YoYo.with(Techniques.Pulse)
+                    .duration(200)
+                    .playOn(m_ScoreTv);
+        }
     }
 
 
@@ -238,7 +285,8 @@ public class QuestionActivity extends AppCompatActivity
     {
 
         //m_TimerCounterTv.setBackground(getResources().getDrawable(R.drawable.timer_backgraund, this.getApplication().getTheme()));
-        Toast.makeText(this, "Game Ended", Toast.LENGTH_LONG).show();
+        String gameOver = getString(R.string.game_over);
+        Toast.makeText(this, gameOver, Toast.LENGTH_LONG).show();
         Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
         intent.putExtra("Difficulty", m_Difficulty);
 
@@ -256,7 +304,6 @@ public class QuestionActivity extends AppCompatActivity
     private void continueGame()
     {
         setNewQuestion(m_GameState.getCurrentQuestion());
-        updateScore();
         resetAndStartQuestionTimer();
         enableUserInput(true);
     }
@@ -335,6 +382,9 @@ public class QuestionActivity extends AppCompatActivity
 
         if(!i_IsCorrect && currentLife > 0)
         {
+            YoYo.with(Techniques.Shake)
+                    .duration(200)
+                    .playOn(m_LivesContainerRL);
             m_LivesIV.get(currentLife - 1).setVisibility(View.INVISIBLE);
         }
     }
@@ -349,12 +399,12 @@ public class QuestionActivity extends AppCompatActivity
 
     private void timeUp()
     {
+        String timeUp = getString(R.string.time_up);
         removeHeart(false);
         SoundManager.getInstance().playMainSound(QuestionActivity.this, eSoundsIdentifier.TIME_UP_SOUND);
-        Toast.makeText(this, "Time Up!!!!!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, timeUp, Toast.LENGTH_SHORT).show();
         pauseClockRunnable();
         m_GameState = m_GameSessionManager.timeUp();
-        updateScore();
 
         Runnable runnable = new Runnable() {
             @Override

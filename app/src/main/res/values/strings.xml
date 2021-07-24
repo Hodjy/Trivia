@@ -54,4 +54,6 @@
     <string name="help_dialog_fragment_how_to_play">This is a trivia game about foliage.<br /> In the game, you will recieve a picture of a foliage, and you will have 4 options in which to pick the correct answer from.<br />Choose the answer you think is correct, and if it is true you will receive points! if not you will lose a life, also beware of the timer!<br />Also, you can check the encyclopedia in order to learn about the foliage names.</string>
     <string name="ok">OK</string>
     <string name="encyclopedia">Encyclopedia</string>
+    <string name="game_over">Game Over</string>
+    <string name="time_up">Time up!</string>
 </resources>

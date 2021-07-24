@@ -24,9 +24,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Game Over"
+            android:text="@string/game_over"
             android:textSize="45sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:gravity="center"
             android:id="@+id/result_activity_resultTv"/>
 

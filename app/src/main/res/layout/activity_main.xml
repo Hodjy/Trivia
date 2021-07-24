@@ -57,7 +57,7 @@
             android:layout_height="match_parent"
             android:text="@string/main_activity_tap_here"
             android:textSize="40sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center"
             android:id="@+id/main_activity_tap_hereTV"/>
