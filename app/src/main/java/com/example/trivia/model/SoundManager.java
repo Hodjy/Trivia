@@ -1,7 +1,13 @@
 package com.example.trivia.model;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.view.View;
+
+import com.example.trivia.ApplicationContext;
+import com.example.trivia.R;
+import com.example.trivia.ResultActivity;
 import com.example.trivia.enums.eSoundsIdentifier;
 
 public class SoundManager {
@@ -64,5 +70,26 @@ public class SoundManager {
 
     public void setPlayMusic(boolean i_PlayMusic) {
         m_PlayMusic = i_PlayMusic;
+    }
+
+    public void onActivityResume(Context context, eSoundsIdentifier soundIdentifier, View view, Drawable soundOnDrawable, Drawable soundOffDrawable){
+
+        if(SoundManager.getInstance().isPlayMusic())
+        {
+            playBackgroundSound(context, soundIdentifier);
+            view.setBackground(soundOnDrawable);
+        }
+        else
+        {
+            setPlayMusic(true);
+            playBackgroundSound(context, soundIdentifier);
+            pauseBackgroundSound();
+            setPlayMusic(false);
+            view.setBackground(soundOffDrawable);
+        }
+    }
+
+    public void onActivityPause(){
+        pauseBackgroundSound();
     }
 }

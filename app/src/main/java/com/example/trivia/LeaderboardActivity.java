@@ -76,18 +76,10 @@ public class LeaderboardActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        if(SoundManager.getInstance().isPlayMusic())
-        {
-            SoundManager.getInstance().playBackgroundSound(LeaderboardActivity.this, eSoundsIdentifier.LEADERBOARD_MUSIC);
-            m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
-        }
-        else
-        {
-            SoundManager.getInstance().setPlayMusic(true);
-            SoundManager.getInstance().playBackgroundSound(LeaderboardActivity.this, eSoundsIdentifier.LEADERBOARD_MUSIC);
-            SoundManager.getInstance().pauseBackgroundSound();
-            SoundManager.getInstance().setPlayMusic(false);
-            m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
-        }
+
+        SoundManager.getInstance().onActivityResume(LeaderboardActivity.this, eSoundsIdentifier.LEADERBOARD_MUSIC,
+                m_SoundBtn, getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()),
+                getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
+
     }
 }

@@ -157,24 +157,16 @@ public class MainActivity extends AppCompatActivity implements DifficultyFragmen
     @Override
     protected void onPause() {
         super.onPause();
-        SoundManager.getInstance().pauseBackgroundSound();
+        SoundManager.getInstance().onActivityPause();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        if(SoundManager.getInstance().isPlayMusic())
-        {
-            SoundManager.getInstance().playBackgroundSound(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
-            m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
-        }
-        else
-        {
-            SoundManager.getInstance().setPlayMusic(true);
-            SoundManager.getInstance().playBackgroundSound(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
-            SoundManager.getInstance().pauseBackgroundSound();
-            SoundManager.getInstance().setPlayMusic(false);
-            m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
-        }
+
+        SoundManager.getInstance().onActivityResume(MainActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC,
+                m_SoundBtn, getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()),
+                getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
+
     }
 }
