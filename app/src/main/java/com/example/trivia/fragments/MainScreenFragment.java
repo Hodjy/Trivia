@@ -47,13 +47,15 @@ public class MainScreenFragment extends Fragment
             @Override
             public void onClick(View v) {
                 SoundManager.getInstance().playMainSound(ApplicationContext.getContext(), eSoundsIdentifier.BTN_CLICK_SOUND);
-
                 FragmentManager fm = getParentFragmentManager();
                 DifficultyFragment dF = new DifficultyFragment();
-                fm.beginTransaction().replace(R.id.main_activity_fragment_container, dF, eMainActivityFragmentTags.DIFFICULTY_FRAGMENT.toString())
+                fm.beginTransaction()
+                        .replace(
+                                R.id.main_activity_fragment_container,
+                                dF,
+                                eMainActivityFragmentTags.DIFFICULTY_FRAGMENT.toString()
+                        )
                         .addToBackStack(null)
-                        .setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left
-                        , R.anim.enter_left_to_right, R.anim.exit_left_to_right)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();
             }
