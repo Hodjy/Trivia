@@ -49,6 +49,7 @@ public class SoundManager {
             }
             m_BackgroundMediaPlayer = MediaPlayer.create(context, soundIdentifier.id);
             m_BackgroundMediaPlayer.start();
+            m_BackgroundMediaPlayer.setLooping(true);
         }
     }
 

@@ -34,6 +34,7 @@ public class EncyclopediaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encyclopedia);
 
+
         m_BackBtn = findViewById(R.id.encyclopedia_activity_backBtn);
         m_BackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
