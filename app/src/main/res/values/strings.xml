@@ -56,4 +56,5 @@
     <string name="encyclopedia">Encyclopedia</string>
     <string name="game_over">Game Over</string>
     <string name="time_up">Time up!</string>
+    <string name="game_name">Nature Trivia</string>
 </resources>

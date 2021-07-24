@@ -57,4 +57,5 @@
     <string name="encyclopedia">אנציקלופדיה</string>
     <string name="game_over">סוף משחק</string>
     <string name="time_up">נגמר הזמן!</string>
+    <string name="game_name">טריווית טבע</string>
 </resources>
