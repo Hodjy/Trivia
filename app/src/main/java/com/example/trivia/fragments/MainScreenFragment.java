@@ -1,7 +1,6 @@
 package com.example.trivia.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +21,11 @@ import com.example.trivia.model.SoundManager;
 
 public class MainScreenFragment extends Fragment
 {
-    private MainScreenFragmentListener m_Callback;
+    private IMainScreenFragmentListener m_Callback;
 
     public MainScreenFragment() {}
 
-    public interface MainScreenFragmentListener{
+    public interface IMainScreenFragmentListener {
         void onLeaderBoardClick();
         void onEncyclopediaClick();
     }
@@ -73,7 +72,7 @@ public class MainScreenFragment extends Fragment
         super.onAttach(context);
 
         try{
-            m_Callback = (MainScreenFragmentListener)context;
+            m_Callback = (IMainScreenFragmentListener)context;
         }
         catch (ClassCastException ex){
             throw new ClassCastException("The activity must implement the MainScreenFragmentListener");

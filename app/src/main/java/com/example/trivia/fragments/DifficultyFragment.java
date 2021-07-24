@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.trivia.ApplicationContext;
-import com.example.trivia.MainActivity;
 import com.example.trivia.R;
 import com.example.trivia.enums.eSoundsIdentifier;
 import com.example.trivia.model.SoundManager;
@@ -25,12 +24,12 @@ public class DifficultyFragment extends Fragment
 {
     public DifficultyFragment() {}
 
-    public interface OnDifficultyClickFragmentListener
+    public interface IDifficultyFragmentListener
     {
         void onDifficultyClick(ADifficulty i_Difficulty);
     }
 
-    OnDifficultyClickFragmentListener m_Callback;
+    IDifficultyFragmentListener m_Callback;
 
     @Override
     public void onAttach(@NonNull Context i_Context)
@@ -38,7 +37,7 @@ public class DifficultyFragment extends Fragment
         super.onAttach(i_Context);
 
         try {
-            m_Callback = (OnDifficultyClickFragmentListener)i_Context;
+            m_Callback = (IDifficultyFragmentListener)i_Context;
         }
         catch (ClassCastException ex)
         {

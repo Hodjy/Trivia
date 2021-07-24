@@ -18,7 +18,7 @@ import com.example.trivia.fragments.MainScreenFragment;
 import com.example.trivia.model.SoundManager;
 import com.example.trivia.model.difficulty.ADifficulty;
 
-public class MainActivity extends AppCompatActivity implements DifficultyFragment.OnDifficultyClickFragmentListener, MainScreenFragment.MainScreenFragmentListener
+public class MainActivity extends AppCompatActivity implements DifficultyFragment.IDifficultyFragmentListener, MainScreenFragment.IMainScreenFragmentListener
 {
     private Button m_SoundBtn;
     private FragmentManager m_fragmentManager;
