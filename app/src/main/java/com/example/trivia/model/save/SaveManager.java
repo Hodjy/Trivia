@@ -60,15 +60,23 @@ public class SaveManager
         if(UserScoreList !=null)
         {
             int i=0;
+            boolean isLowest = true;
 
             for(UserScore userScore: UserScoreList)
             {
                 if(userScore.getScore() <= i_UserScore.getScore())
                 {
                     UserScoreList.add(i,i_UserScore);
+                    isLowest = false;
                     break;
                 }
                 i++;
+            }
+
+            // if this is the lowest score
+            if(isLowest)
+            {
+                UserScoreList.add(i_UserScore);
             }
 
             if(UserScoreList.size() > SCORE_LIST_SIZE)
