@@ -290,9 +290,7 @@ public class QuestionActivity extends AppCompatActivity
                 }
                 else
                 {
-                    //TimeUpSound
                     timeUp();
-                    //m_TimeUpDialog.show();
                 }
             }
         };
@@ -351,6 +349,8 @@ public class QuestionActivity extends AppCompatActivity
 
     private void timeUp()
     {
+        removeHeart(false);
+        SoundManager.getInstance().playMainSound(QuestionActivity.this, eSoundsIdentifier.TIME_UP_SOUND);
         Toast.makeText(this, "Time Up!!!!!", Toast.LENGTH_SHORT).show();
         pauseClockRunnable();
         m_GameState = m_GameSessionManager.timeUp();

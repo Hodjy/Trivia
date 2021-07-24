@@ -5,10 +5,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/background_rocks_water">
 
-    <Space
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="40dp"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_weight="2"
+        android:layout_gravity="end"
+        android:id="@+id/encyclopedia_activity_sound_btn"
+        android:background="@drawable/ic_outline_volume_up"/>
 
     <TextView
         android:layout_width="match_parent"

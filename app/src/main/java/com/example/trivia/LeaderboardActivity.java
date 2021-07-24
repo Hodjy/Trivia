@@ -18,18 +18,39 @@ import java.util.ArrayList;
 
 public class LeaderboardActivity extends AppCompatActivity {
 
+    private Button m_BackBtn;
+    private Button m_SoundBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
-        Button backBtn = findViewById(R.id.leaderboard_activity_backBtn);
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        m_BackBtn = findViewById(R.id.leaderboard_activity_backBtn);
+        m_BackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SoundManager.getInstance().playMainSound(LeaderboardActivity.this, eSoundsIdentifier.BTN_CLICK_SOUND);
                 finish();
+            }
+        });
+
+        m_SoundBtn = findViewById(R.id.leaderboard_activity_sound_btn);
+        m_SoundBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(SoundManager.getInstance().isPlayMusic())
+                {
+                    SoundManager.getInstance().pauseBackgroundSound();
+                    m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
+                }
+                else
+                {
+                    SoundManager.getInstance().resumeBackgroundSound();
+                    m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
+                }
+
+                SoundManager.getInstance().setPlayMusic(!SoundManager.getInstance().isPlayMusic());
             }
         });
 
@@ -43,6 +64,30 @@ public class LeaderboardActivity extends AppCompatActivity {
         {
             UserScoreAdapter userScoreAdapter = new UserScoreAdapter(usersScores);
             userScoreList.setAdapter(userScoreAdapter);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SoundManager.getInstance().pauseBackgroundSound();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(SoundManager.getInstance().isPlayMusic())
+        {
+            SoundManager.getInstance().playBackgroundSound(LeaderboardActivity.this, eSoundsIdentifier.LEADERBOARD_MUSIC);
+            m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
+        }
+        else
+        {
+            SoundManager.getInstance().setPlayMusic(true);
+            SoundManager.getInstance().playBackgroundSound(LeaderboardActivity.this, eSoundsIdentifier.LEADERBOARD_MUSIC);
+            SoundManager.getInstance().pauseBackgroundSound();
+            SoundManager.getInstance().setPlayMusic(false);
+            m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
         }
     }
 }

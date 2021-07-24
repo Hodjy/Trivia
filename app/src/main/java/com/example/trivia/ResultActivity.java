@@ -142,14 +142,15 @@ public class ResultActivity extends AppCompatActivity {
         super.onResume();
         if(SoundManager.getInstance().isPlayMusic())
         {
-            SoundManager.getInstance().playBackgroundSound(ResultActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
+            SoundManager.getInstance().playBackgroundSound(ResultActivity.this, eSoundsIdentifier.END_GAME_MUSIC);
             m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_outline_volume_up, ApplicationContext.getContext().getTheme()));
         }
         else
         {
             SoundManager.getInstance().setPlayMusic(true);
-            SoundManager.getInstance().playBackgroundSound(ResultActivity.this, eSoundsIdentifier.MAIN_ACTIVITY_MUSIC);
+            SoundManager.getInstance().playBackgroundSound(ResultActivity.this, eSoundsIdentifier.END_GAME_MUSIC);
             SoundManager.getInstance().pauseBackgroundSound();
+            SoundManager.getInstance().setPlayMusic(false);
             m_SoundBtn.setBackground(getResources().getDrawable(R.drawable.ic_baseline_volume_off_24, ApplicationContext.getContext().getTheme()));
         }
     }
