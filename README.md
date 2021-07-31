@@ -14,12 +14,12 @@ Picking a difficulty will start a new game, while pressing either the "Back" or 
 ![Game](https://user-images.githubusercontent.com/62711261/127739073-3ce5b1d1-1196-4d1e-be81-ed85ed526966.png)
 
 The game screen, the player has 3 lives and occumilate scores when answering correctly.         
-Difficulty affects the score (E-100,M-200,H-300).
+Difficulty affects the score (E-100,M-200,H-300).           
 
 ## GameOver       
 ![GameOver](https://user-images.githubusercontent.com/62711261/127738976-f78702c0-99b6-48bd-b4d2-2043d0b586a9.png)        
 
-After the game is finished, this screen is displayed.
+After the game is finished, this screen is displayed.         
 The player can save his score, return to the home screen, go the leaderboards,and retry the game on the same difficulty.        
 
 ## Leaderboards         
