@@ -1,50 +1,89 @@
 package com.example.trivia.model;
 
-import com.example.trivia.AnswerButton;
+import com.example.trivia.model.difficulty.ADifficulty;
+import com.example.trivia.model.difficulty.DifficultyEasy;
+import com.example.trivia.model.difficulty.DifficultyHard;
+import com.example.trivia.model.difficulty.DifficultyMedium;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Game session class, must be initialised with initGameSession after creation.
+ * Must contain questions.
  */
 public class GameSessionManager
 {
     private ArrayList<Question> m_Questions;
     private GameState m_GameState;
     private int m_CurrentQuestionCounter;
+    private int m_QuestionScoreWeight;
+    private ADifficulty m_Difficulty;
 
-    GameSessionManager(ArrayList<Question> i_Questions)
+    public GameSessionManager(ADifficulty i_Difficulty)
     {
-        m_Questions = i_Questions;
+        m_Difficulty = i_Difficulty;
+        calculateScoreWeight();
+        loadAndShuffleQuestions();
+    }
+
+    private void calculateScoreWeight() {
+        int score = 0;
+        m_QuestionScoreWeight = 1;
+        ArrayList<ADifficulty> difficulties = new ArrayList<>();
+        difficulties.add(new DifficultyEasy());
+        difficulties.add(new DifficultyMedium());
+        difficulties.add(new DifficultyHard());
+
+        for (ADifficulty difficulty : difficulties)
+        {
+            score +=100;
+            if(m_Difficulty.getDifficulty().equals(difficulty.getDifficulty()))
+            {
+                m_QuestionScoreWeight = score;
+                break;
+            }
+        }
     }
 
     public GameState initGameSession()
     {
         int startingLife = 3;
         int startingScore = 0;
+        boolean gameIsRunning = true;
         m_CurrentQuestionCounter = 0;
-        m_GameState = new GameState(m_Questions.get(0), startingScore, startingLife);
+        if(m_Questions.size() != 0)
+        {
+            m_GameState = new GameState(m_Questions.get(0), startingScore, startingLife, gameIsRunning);
+        }
+        else
+        {
+            m_GameState = new GameState(null, 0, 0, !gameIsRunning);
+        }
 
         return  m_GameState;
     }
 
 
-    public GameState answerPressed(Boolean isCorrectAnswer, int i_TimeLeftForAnswer)
+    public GameState answerPressed(Boolean isCorrectAnswer)
     {
-        if(isCorrectAnswer)
+        if(m_GameState.get_IsGameRunning())
         {
-            //play Correct animation and sound
-            //lock timer and UI
-            //delay
-            calculateScore(i_TimeLeftForAnswer);
-            nextQuestion();
-        }
-        else
-        {
-            //play InCorrect animation and sound
-            //lock timer and UI
-            //delay
-            loseLifeAndProceed();
+            if(isCorrectAnswer)
+            {
+                //play Correct animation and sound
+                //lock timer and UI
+                //delay
+                calculateScore();
+                nextQuestion();
+            }
+            else
+            {
+                //play InCorrect animation and sound
+                //lock timer and UI
+                //delay
+                loseLifeAndProceed();
+            }
         }
 
         return m_GameState;
@@ -53,7 +92,7 @@ public class GameSessionManager
     private void nextQuestion()
     {
 
-        if((m_CurrentQuestionCounter + 1) <=  m_Questions.size())
+        if(m_CurrentQuestionCounter <  (m_Questions.size() - 1))
         {
             m_CurrentQuestionCounter++;
             m_GameState.setCurrentQuestion(m_Questions.get(m_CurrentQuestionCounter));
@@ -64,9 +103,9 @@ public class GameSessionManager
         }
     }
 
-    private void calculateScore(int i_TimeLeftForAnswer)
+    private void calculateScore()
     {
-        m_GameState.setCurrentScore(m_GameState.getCurrentScore() + 1);
+        m_GameState.setCurrentScore(m_GameState.getCurrentScore() + m_QuestionScoreWeight);
     }
 
     private void loseLifeAndProceed()
@@ -84,10 +123,9 @@ public class GameSessionManager
         }
     }
 
-    private GameState timeUp()
+    public GameState timeUp()
     {
-        endGame(false);
-
+        loseLifeAndProceed();
         return m_GameState;
     }
 
@@ -104,4 +142,43 @@ public class GameSessionManager
             //lose, check if because of time or lives and send corresponding message.
         }
     }
+
+    public int getTimeForQuestion()
+    {
+        return m_Difficulty.getTimeForQuestion();
+    }
+
+    public String getDifficulty()
+    {
+        return m_Difficulty.getDifficulty();
+    }
+
+    private void loadAndShuffleQuestions()
+    {
+        ArrayList<Question> questions = QuestionsCreator.
+                getQuestionsByDifficulty(m_Difficulty.getDifficulty());
+        m_Questions = shuffleQuestions(questions);
+    }
+
+    private ArrayList<Question> shuffleQuestions(ArrayList<Question> i_Questions)
+    {
+        int length = i_Questions.size();
+        ArrayList<Question> randomizedQuestions = new ArrayList<>();
+
+        if(length > 0)
+        {
+            Random rand = new Random();
+            int randomIndex = 0;
+
+            for (int i = 0; i< length; i++)
+            {
+                randomIndex = rand.nextInt(i_Questions.size());
+                Question question = i_Questions.get(randomIndex);
+                randomizedQuestions.add(question);
+                i_Questions.remove(question);
+            }
+        }
+         return randomizedQuestions;
+    }
+
 }

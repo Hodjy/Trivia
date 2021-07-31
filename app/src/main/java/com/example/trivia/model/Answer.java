@@ -2,18 +2,18 @@ package com.example.trivia.model;
 
 public class Answer
 {
-    private final String m_Answer;
+    private final String m_AnswerText;
     private final boolean m_IsCorrect;
 
     public Answer(String i_Answer, boolean i_IsCorrect)
     {
-        m_Answer = i_Answer;
+        m_AnswerText = i_Answer;
         m_IsCorrect = i_IsCorrect;
     }
 
-    public String getAnswer()
+    public String getAnswerText()
     {
-        return m_Answer;
+        return m_AnswerText;
     }
 
     public boolean getIsCorrect()

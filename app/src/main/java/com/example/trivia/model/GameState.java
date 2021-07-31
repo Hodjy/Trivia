@@ -3,20 +3,22 @@ package com.example.trivia.model;
 /**
  * This class encapsulates all the data related to the game session, in order to send it to the
  * View.
+ * DO NOT USE ITS SETTERS OUTSIDE OF THE GameSessionManager Class!
  */
 public class GameState
 {
     private Question m_CurrentQuestion;
     private int m_CurrentScore;
     private int m_CurrentLife;
-
     private boolean m_IsGameRunning;
 
-    public GameState(Question i_CurrentQuestion, int i_CurrentScore, int i_CurrentLife)
+    public GameState(Question i_CurrentQuestion, int i_CurrentScore,
+                     int i_CurrentLife, boolean i_IsGameRunning)
     {
         m_CurrentQuestion = i_CurrentQuestion;
         m_CurrentScore = i_CurrentScore;
         m_CurrentLife = i_CurrentLife;
+        m_IsGameRunning = i_IsGameRunning;
     }
 
     public Question getCurrentQuestion()

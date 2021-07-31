@@ -1,44 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:weightSum="100"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/background_scene"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Lives                                            23 left                                 settings"
+        android:layout_weight="5"
+        android:id="@+id/question_activity_info_barRL">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:id="@+id/question_activity_hearts_containerRL">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_outline_heart_border_24"
+                android:id="@+id/question_activity_heartIv1"
+                android:layout_alignParentStart="true"
+                app:tint="@color/light_red"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_outline_heart_border_24"
+                android:id="@+id/question_activity_heartIv2"
+                android:layout_toEndOf="@id/question_activity_heartIv1"
+                app:tint="@color/light_red"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_outline_heart_border_24"
+                android:id="@+id/question_activity_heartIv3"
+                android:layout_toEndOf="@id/question_activity_heartIv2"
+                app:tint="@color/light_red"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:text="0"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:id="@+id/questionActivity_scoreTV"
+            android:textColor="@color/white"/>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/question_activity_sound_btn"
+            android:background="@drawable/ic_outline_volume_up"/>
+
+    </RelativeLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="5"
         />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:adjustViewBounds="true"
-        android:layout_weight="40"
-        android:scaleType="fitXY"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_baseline_local_florist_24"
-        android:background="@color/design_default_color_secondary"
-        android:id="@+id/questionActivity_questionIV"/>
-
-    <Space
-        android:layout_weight="15"
-        android:layout_height="0dp"
-        android:layout_width="match_parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="40"
+        android:orientation="horizontal"
+        >
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:layout_weight="3"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:id="@+id/questionActivity_questionIV"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="8"
+        android:layout_gravity="center">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateOnly="false"
+            android:progressDrawable="@drawable/progress_circle"
+            android:progress="10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/question_activity_progress_bar"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@id/question_activity_progress_bar"
+            app:layout_constraintBottom_toBottomOf="@id/question_activity_progress_bar"
+            app:layout_constraintStart_toStartOf="@id/question_activity_progress_bar"
+            app:layout_constraintEnd_toEndOf="@id/question_activity_progress_bar"
+            android:id="@+id/question_activity_timerTv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
         android:orientation="horizontal">
 
         <Space
@@ -70,7 +175,7 @@
     </LinearLayout>
 
     <Space
-        android:layout_weight="1"
+        android:layout_weight="6"
         android:layout_height="0dp"
         android:layout_width="match_parent"/>
 
@@ -78,7 +183,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
+        android:layout_weight="7"
         android:orientation="horizontal">
 
         <Space

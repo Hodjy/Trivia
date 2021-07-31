@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/background_scene_leaves">
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="8"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/game_over"
+            android:textSize="45sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:id="@+id/result_activity_resultTv"/>
+
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/result_activity_your_score"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_alignParentStart="true"
+                android:layout_margin="5dp"
+                android:id="@+id/result_activity_yourScoreTv"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:layout_below="@id/result_activity_yourScoreTv"
+                android:id="@+id/result_activity_playerScoreTv"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/result_activity_enter_name"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textColorHint="#DCD6D6"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:layout_below="@id/result_activity_playerScoreTv"
+                android:id="@+id/result_activity_enterNameEd"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/result_activity_save"
+                android:textAllCaps="false"
+                android:background="@drawable/result_activity_buttons_selector"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="35dp"
+                android:id="@+id/result_activity_saveBtn"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="100dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/result_activity_homeIB"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="40dp"
+                android:src="@drawable/home_icon"
+                android:background="@drawable/result_activity_buttons_selector"/>
+
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="40dp"
+                android:src="@drawable/leaderboard_icon"
+                android:background="@drawable/result_activity_buttons_selector"
+                android:id="@+id/result_activity_leaderboardIB"/>
+
+            <ImageButton
+                android:id="@+id/result_activity_playAgainIB"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:textAllCaps="false"
+                android:src="@drawable/replay_icon"
+                android:background="@drawable/result_activity_buttons_selector"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"/>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="35dp"
+        android:id="@+id/result_activity_sound_btn"
+        android:background="@drawable/ic_outline_volume_up"/>
+
+</LinearLayout>
