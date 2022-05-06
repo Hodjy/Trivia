@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Trivia</string>
+    <string name="app_name">Nature Trivia</string>
     <string name="answer_easy_rose">ורד</string>
     <string name="answer_easy_sunflower">חמניה</string>
     <string name="answer_easy_cyclamen">רקפת</string>

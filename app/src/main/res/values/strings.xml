@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trivia</string>
+    <string name="app_name">Nature Trivia</string>
     <string name="leaderboard_activity_title">Leaderboard</string>
     <string name="answer_easy_sunflower">Sunflower</string>
     <string name="answer_easy_rose">Rose</string>
